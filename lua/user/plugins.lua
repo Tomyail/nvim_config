@@ -71,6 +71,8 @@ return packer.startup(function(use)
 		"RRethy/nvim-treesitter-endwise",
 
 		"numToStr/Comment.nvim", -- Easily comment stuff
+
+		"kdheepak/lazygit.nvim",
 	}
 
 	local enhanced = {
