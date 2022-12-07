@@ -12,6 +12,11 @@ if not snip_status_ok then
 	return
 end
 
+local snip_status_ok, cmp_buffer = pcall(require, "cmp_buffer")
+if not snip_status_ok then
+	return
+end
+
 require("luasnip/loaders/from_vscode").lazy_load()
 
 local check_backspace = function()
@@ -43,6 +48,20 @@ cmp.setup({
 		return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
 		-- or cmp_dap.is_dap_buffer()
 	end,
+	sorting = {
+		priority_weight = 1.0,
+		comparators = {
+			function(...)
+				return cmp_buffer:compare_locality(...)
+			end,
+			cmp.config.compare.locality,
+			cmp.config.compare.recently_used,
+			cmp.config.compare.score, -- based on :  score = score + ((#sources - (source_index - 1)) * sorting.priority_weight)
+			cmp.config.compare.offset,
+			cmp.config.compare.order,
+			-- The rest of your comparators...
+		},
+	},
 	mapping = cmp.mapping.preset.insert({
 		["<C-k>"] = cmp.mapping.select_prev_item(),
 		["<C-j>"] = cmp.mapping.select_next_item(),
@@ -99,50 +118,55 @@ cmp.setup({
 	}),
 
 	formatting = {
-		fields = { "kind", "abbr", "menu" },
+		--[[ fields = { "kind", "abbr", "menu" }, ]]
 		format = function(entry, vim_item)
+			--[[ print(entry.source.name) ]]
+			--[[ print(vim.inspect(entry)) ]]
 			-- Kind icons
-			vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+			--[[ vim_item.kind = string.format("%s", kind_icons[vim_item.kind]) ]]
+			vim_item.kind = vim_item.kind .. "(" .. entry.source.name .. ")"
 
-			if entry.source.name == "cmp_tabnine" then
-				-- if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
-				-- menu = entry.completion_item.data.detail .. " " .. menu
-				-- end
-				vim_item.kind = icons.misc.Robot
-			end
-			if entry.source.name == "copilot" then
-				vim_item.kind = icons.git.Octoface
-				vim_item.kind_hl_group = "CmpItemKindCopilot"
-			end
-			-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-			-- NOTE: order matters
-			vim_item.menu = ({
-				-- nvim_lsp = "[LSP]",
-				-- nvim_lua = "[Nvim]",
-				-- luasnip = "[Snippet]",
-				-- buffer = "[Buffer]",
-				-- path = "[Path]",
-				-- emoji = "[Emoji]",
-
-				nvim_lsp = "",
-				nvim_lua = "",
-				luasnip = "",
-				buffer = "",
-				path = "",
-				emoji = "",
-				dap = "",
-			})[entry.source.name]
+			--[[ if entry.source.name == "cmp_tabnine" then ]]
+			--[[   -- if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then ]]
+			--[[   -- menu = entry.completion_item.data.detail .. " " .. menu ]]
+			--[[   -- end ]]
+			--[[   vim_item.kind = icons.misc.Robot ]]
+			--[[ end ]]
+			--[[ if entry.source.name == "copilot" then ]]
+			--[[   vim_item.kind = icons.git.Octoface ]]
+			--[[   vim_item.kind_hl_group = "CmpItemKindCopilot" ]]
+			--[[ end ]]
+			--[[ -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind ]]
+			--[[ -- NOTE: order matters ]]
+			--[[ vim_item.menu = ({ ]]
+			--[[   -- nvim_lsp = "[LSP]", ]]
+			--[[   -- nvim_lua = "[Nvim]", ]]
+			--[[   -- luasnip = "[Snippet]", ]]
+			--[[   -- buffer = "[Buffer]", ]]
+			--[[   -- path = "[Path]", ]]
+			--[[   -- emoji = "[Emoji]", ]]
+			--[[]]
+			--[[   nvim_lsp = "nvim_lsp", ]]
+			--[[   nvim_lua = "nvim_lua", ]]
+			--[[   luasnip = "luasnip", ]]
+			--[[   buffer = "buff", ]]
+			--[[   path = "path", ]]
+			--[[   emoji = "emoji", ]]
+			--[[   dap = "dap", ]]
+			--[[ })[entry.source.name] ]]
 			return vim_item
 		end,
 	},
 	sources = {
-		{ name = "nvim_lsp" },
-		{ name = "cmdline" },
-		{ name = "luasnip" },
-		{ name = "buffer" },
+		{ name = "cmp_tabnine", priority = 8 },
+		{ name = "nvim_lsp", priority = 8 },
+		{ name = "buffer", priority = 8 },
+		--[[ { name = "cmdline" }, ]]
+		{ name = "luasnip", priority = 7 },
+		{ name = "spell", keyword_length = 3, priority = 5, keyword_pattern = [[\w\+]] },
+		{ name = "dictionary", keyword_length = 3, priority = 5, keyword_pattern = [[\w\+]] }, -- from uga-rosa/cmp-dictionary plug
 		{ name = "path" },
-		{ name = "copilot" },
-		{ name = "cmp_tabnine" },
+		--[[ { name = "copilot" }, ]]
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
