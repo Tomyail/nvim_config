@@ -92,6 +92,7 @@ local supported_lang = {
 		"wgsl",
 		"yaml",
 		"zig",
+    "surface"
 	},
 	enhanced = "all",
 	deluxe = "all",

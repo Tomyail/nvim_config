@@ -34,6 +34,7 @@ local servers = {
 	-- "volar", -- for vue 3
 	"vuels", -- for vue 2
 	"elixirls",
+  "tailwindcss"
 }
 
 mason_lsp.setup({
