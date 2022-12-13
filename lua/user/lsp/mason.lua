@@ -8,15 +8,16 @@ if not status_ok2 then
 	return
 end
 
-mason.setup({
-	ui = {
-		icons = {
-			package_installed = "✓",
-		},
-	},
-})
 
-local servers = {
+local utils = require("user.functions")
+
+local supported_server = {
+  basic=  {
+	"jsonls",
+	"sumneko_lua",
+	"yamlls",
+  },
+  enhanced = {
 	"cssls",
 	"cssmodules_ls",
 	-- "emmet_ls",
@@ -35,10 +36,23 @@ local servers = {
 	"vuels", -- for vue 2
 	"elixirls",
   "tailwindcss"
+  },
+
+  deluxe = {
+
+  }
 }
+mason.setup({
+	ui = {
+		icons = {
+			package_installed = "✓",
+		},
+	},
+})
+
 
 mason_lsp.setup({
-	ensure_installed = servers,
+	ensure_installed = supported_server[utils.get_running_mode()],
 })
 
 local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
