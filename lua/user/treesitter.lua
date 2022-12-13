@@ -8,6 +8,36 @@ local utils = require("user.functions")
 local supported_lang = {
 	-- list installled for n in *; do printf '%s,\n' "${n%.*}"; done
 	basic = {
+		"bash",
+		"c",
+		"cmake",
+		"comment",
+		"cpp",
+		"css",
+		"dockerfile",
+		"git_rebase",
+		"gitattributes",
+		"gitcommit",
+		"gitignore",
+		"html",
+		"javascript",
+		"jq",
+		"json",
+		"json5",
+		"jsonc",
+		"jsonnet",
+		"lua",
+		"make",
+		"markdown",
+		"php",
+		"ruby",
+		"scss",
+		"sql",
+		"vim",
+		"vue",
+		"yaml",
+	},
+	enhanced = {
 		"awk",
 		"bash",
 		"beancount",
@@ -93,8 +123,7 @@ local supported_lang = {
 		"yaml",
 		"zig",
     "surface"
-	},
-	enhanced = "all",
+  },
 	deluxe = "all",
 }
 configs.setup({
