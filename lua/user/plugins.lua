@@ -60,7 +60,6 @@ return packer.startup(function(use)
 		"hrsh7th/cmp-cmdline",
 		"hrsh7th/cmp-nvim-lua",
 		"folke/which-key.nvim",
-
 		{
 			"nvim-treesitter/nvim-treesitter",
 			run = "TSUpdate",
@@ -73,6 +72,13 @@ return packer.startup(function(use)
 		"numToStr/Comment.nvim", -- Easily comment stuff
 
 		"kdheepak/lazygit.nvim",
+		"lewis6991/gitsigns.nvim",
+
+		"ggandor/leap.nvim",
+
+    "gbprod/yanky.nvim",
+
+		"rafamadriz/friendly-snippets",
 	}
 
 	local enhanced = {
@@ -104,7 +110,6 @@ return packer.startup(function(use)
 		},
 		"akinsho/bufferline.nvim",
 		"hoob3rt/lualine.nvim",
-		"lewis6991/gitsigns.nvim",
 		"rcarriga/nvim-notify",
 		"lewis6991/impatient.nvim",
 		"nathom/filetype.nvim",
@@ -114,7 +119,6 @@ return packer.startup(function(use)
 		"nvim-lua/popup.nvim",
 		"tami5/lspsaga.nvim",
 		"lukas-reineke/indent-blankline.nvim",
-		"rafamadriz/friendly-snippets",
 		"tpope/vim-rhubarb",
 		"folke/lsp-colors.nvim",
 		"ray-x/lsp_signature.nvim",
@@ -138,7 +142,6 @@ return packer.startup(function(use)
 		"folke/tokyonight.nvim",
 		"phaazon/hop.nvim",
 		"ggandor/lightspeed.nvim",
-		"ggandor/leap.nvim",
 		"unblevable/quick-scope",
 		"ThePrimeagen/harpoon",
 		{ "nathangrigg/vim-beancount", ft = { "bean" } },
