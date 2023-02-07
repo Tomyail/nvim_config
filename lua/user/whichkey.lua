@@ -255,6 +255,7 @@ local vopts = {
 local vmappings = {
 	["/"] = { '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', "Comment" },
 	s = { "<esc><cmd>'<,'>SnipRun<cr>", "Run range" },
+	G = { "<esc><cmd>ChatGPTEditWithInstructions<cr>", "ChatGPT" },
 }
 
 local m_opts = {

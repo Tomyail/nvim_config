@@ -32,6 +32,7 @@ require("user.cybu")
 require("user.snippet")
 require("user.leap")
 require("user.yanky")
+require("user.chat-gpt")
 
 if vim.fn.has("nvim-0.8") == 1 then
 	require("user.winbar")

@@ -76,9 +76,12 @@ return packer.startup(function(use)
 
 		"ggandor/leap.nvim",
 
-    "gbprod/yanky.nvim",
+		"gbprod/yanky.nvim",
 
 		"rafamadriz/friendly-snippets",
+
+    "MunifTanjim/nui.nvim",
+		"jackMort/ChatGPT.nvim",
 	}
 
 	local enhanced = {
