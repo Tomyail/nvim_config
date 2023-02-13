@@ -14,7 +14,7 @@ local utils = require("user.functions")
 local supported_server = {
   basic=  {
 	"jsonls",
-	"sumneko_lua",
+	"lua_ls",
 	"yamlls",
   },
   enhanced = {
@@ -24,7 +24,7 @@ local supported_server = {
 	"html",
 	-- "jdtls",
 	"jsonls",
-	"sumneko_lua",
+	"lua_ls",
 	"tflint",
 	"tsserver",
 	"pyright",
