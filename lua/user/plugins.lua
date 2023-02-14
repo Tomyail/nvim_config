@@ -77,6 +77,7 @@ return packer.startup(function(use)
 		"ggandor/leap.nvim",
 
 		"gbprod/yanky.nvim",
+		"akinsho/bufferline.nvim",
 
 		"rafamadriz/friendly-snippets",
 
@@ -111,7 +112,6 @@ return packer.startup(function(use)
 			run = "./install.sh",
 			requires = "hrsh7th/nvim-cmp",
 		},
-		"akinsho/bufferline.nvim",
 		"hoob3rt/lualine.nvim",
 		"rcarriga/nvim-notify",
 		"lewis6991/impatient.nvim",
