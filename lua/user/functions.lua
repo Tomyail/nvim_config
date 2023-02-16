@@ -191,4 +191,13 @@ function M.get_running_mode()
 	return running_mode
 end
 
+function M.start_leap_forward_to()
+	local status_ok, leap = pcall(require, "leap")
+
+	if not status_ok then
+		return
+	end
+	leap.leap({ opts = { labels = {} } })
+end
+
 return M

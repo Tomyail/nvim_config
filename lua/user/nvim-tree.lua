@@ -11,6 +11,7 @@ if not config_status_ok then
 	return
 end
 
+local utils = require("user.functions")
 local tree_cb = nvim_tree_config.nvim_tree_callback
 
 --   nnoremap sf :NvimTreeFindFile<CR>
@@ -45,7 +46,13 @@ local list = {
 	{ key = "[c", cb = tree_cb("prev_git_item") },
 	{ key = "]c", cb = tree_cb("next_git_item") },
 	{ key = "-", cb = tree_cb("dir_up") },
-	{ key = "s", cb = tree_cb("system_open") },
+	--[[ { key = "s", cb = tree_cb("system_open") }, ]]
+	{
+		key = "s",
+		action = "leap",
+		action_cb = utils.start_leap_forward_to,
+	},
+	{ key = "O", cb = tree_cb("system_open") },
 	{ key = "q", cb = tree_cb("close") },
 	{ key = "g?", cb = tree_cb("toggle_help") },
 }
