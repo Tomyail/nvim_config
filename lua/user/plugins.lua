@@ -81,8 +81,10 @@ return packer.startup(function(use)
 
 		"rafamadriz/friendly-snippets",
 
-    "MunifTanjim/nui.nvim",
+		"MunifTanjim/nui.nvim",
 		"jackMort/ChatGPT.nvim",
+
+		"kylechui/nvim-surround",
 	}
 
 	local enhanced = {
