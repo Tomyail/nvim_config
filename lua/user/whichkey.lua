@@ -87,7 +87,7 @@ local mappings = {
 	-- },
 	["/"] = { '<cmd>lua require("Comment.api").toggle.linewise.current()<CR>', "Comment" },
 	["w"] = { "<cmd>w!<CR>", "Save" },
-	["q"] = { "<cmd>q!<CR>", "Quit" },
+	["q"] = { '<cmd>lua require("user.functions").delete_buff()<cr>', "Quit" },
 	-- ["q"] = { '<cmd>lua require("user.functions").smart_quit()<CR>', "Quit" },
 	["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
 	["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
@@ -171,7 +171,6 @@ local mappings = {
 			"find text",
 		},
 	},
-
 	l = {
 		name = "LSP",
 		a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
@@ -218,7 +217,6 @@ local mappings = {
 		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 		C = { "<cmd>Telescope commands<cr>", "Commands" },
 	},
-
 	t = {
 		name = "Terminal",
 		["1"] = { ":1ToggleTerm<cr>", "1" },
@@ -255,7 +253,7 @@ local vopts = {
 local vmappings = {
 	["/"] = { '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', "Comment" },
 	s = { "<esc><cmd>'<,'>SnipRun<cr>", "Run range" },
-	G = { "<esc><cmd>ChatGPTEditWithInstructions<cr>", "ChatGPT" },
+	G = { "<esc><cmd>ChatGPTEditWithInstructions<cr>", "Run range" },
 }
 
 local m_opts = {

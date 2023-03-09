@@ -34,6 +34,7 @@ require("user.leap")
 require("user.yanky")
 require("user.chat-gpt")
 require("user.surround")
+require('user.mini')
 
 
 if vim.fn.has("nvim-0.8") == 1 then

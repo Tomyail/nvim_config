@@ -85,6 +85,8 @@ return packer.startup(function(use)
 		"jackMort/ChatGPT.nvim",
 
 		"kylechui/nvim-surround",
+
+    'echasnovski/mini.nvim'
 	}
 
 	local enhanced = {

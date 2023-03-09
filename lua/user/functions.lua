@@ -200,4 +200,13 @@ function M.start_leap_forward_to()
 	leap.leap({ opts = { labels = {} } })
 end
 
+function M.delete_buff()
+	local status_ok, bufremove= pcall(require, "mini.bufremove")
+
+	if not status_ok then
+		return
+	end
+  bufremove.delete()
+end
+
 return M
