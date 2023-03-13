@@ -18,9 +18,9 @@ local setup = {
 			motions = false, -- adds help for motions
 			text_objects = false, -- help for text objects triggered after entering an operator
 			windows = true, -- default bindings on <c-w>
-			nav = true, -- misc bindings to work with windows
-			z = true, -- bindings for folds, spelling and others prefixed with z
-			g = true, -- bindings for prefixed with g
+			nav = false,
+			z = false, -- bindings for folds, spelling and others prefixed with z
+			g = false, -- bindings for prefixed with g
 		},
 	},
 	-- add operators that will trigger motion and text object completion
@@ -306,9 +306,68 @@ local m_mappings = {
 -- 	u = { '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', "Harpoon UI" },
 -- }
 --
+local bracket_mappings = {
+	["[b"] = "previous Buffer",
+	["[B"] = "first Buffer",
+	["]b"] = "next Buffer",
+	["]B"] = "last Buffer",
+	["[c"] = "previous Comment block",
+	["[C"] = "first Comment block",
+	["]c"] = "next Comment block",
+	["]C"] = "last Comment block",
+	["[x"] = "previous Conflict marker",
+	["[X"] = "first Conflict marker",
+	["]x"] = "next Conflict marker",
+	["]X"] = "last Conflict marker",
+	["[d"] = "previous Diagnostic",
+	["[D"] = "first Diagnostic",
+	["]d"] = "next Diagnostic",
+	["]D"] = "last Diagnostic",
+	["[f"] = "previous File on disk",
+	["[F"] = "first File on disk",
+	["]f"] = "next File on disk",
+	["]F"] = "last File on disk",
+	["[i"] = "previous Indent change",
+	["[I"] = "first Indent change",
+	["]i"] = "next Indent change",
+	["]I"] = "last Indent change",
+	["[j"] = "previous Jump from jumplist inside current buffer",
+	["[J"] = "first Jump from jumplist inside current buffer",
+	["]j"] = "next Jump from jumplist inside current buffer",
+	["]J"] = "last Jump from jumplist inside current buffer",
+	["[l"] = "previous Location from location list",
+	["[L"] = "first Location from location list",
+	["]l"] = "next Location from location list",
+	["]L"] = "last Location from location list",
+	["[o"] = "previous Old files",
+	["[O"] = "first Old files",
+	["]o"] = "next Old files",
+	["]O"] = "last Old files",
+	["[q"] = "previous Quickfix entry from quickfix list",
+	["[Q"] = "first Quickfix entry from quickfix list",
+	["]q"] = "next Quickfix entry from quickfix list",
+	["]Q"] = "last Quickfix entry from quickfix list",
+	["[t"] = "previous Tree-sitter node and parents",
+	["[T"] = "first Tree-sitter node and parents",
+	["]t"] = "next Tree-sitter node and parents",
+	["]T"] = "last Tree-sitter node and parents",
+	["[u"] = "previous Undo states from specially tracked linear history",
+	["[U"] = "first Undo states from specially tracked linear history",
+	["]u"] = "next Undo states from specially tracked linear history",
+	["]U"] = "last Undo states from specially tracked linear history",
+	["[w"] = "previous Window in current tab",
+	["[W"] = "first Window in current tab",
+	["]w"] = "next Window in current tab",
+	["]W"] = "last Window in current tab",
+	["[y"] = "previous Yank selection replacing latest put region",
+	["[Y"] = "first Yank selection replacing latest put region",
+	["]y"] = "next Yank selection replacing latest put region",
+	["]Y"] = "last Yank selection replacing latest put region",
+}
 
 which_key.setup(setup)
 which_key.register(mappings, opts)
 which_key.register(vmappings, vopts)
 which_key.register(m_mappings, m_opts)
+which_key.register(bracket_mappings, { mode = "n", prefix = "" })
 -- which_key.register(ctrl_mappings,ctrl_opts)

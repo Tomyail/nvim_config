@@ -7,9 +7,12 @@ end
 --[[ if status_ok then ]]
 --[[ 	animate.setup() ]]
 --[[ end ]]
-
-
-local status_ok, indentscope= pcall(require, "mini.indentscope")
+local status_ok, indentscope = pcall(require, "mini.indentscope")
 if status_ok then
-indentscope.setup()
+	indentscope.setup()
+end
+
+local status_ok, bracketed = pcall(require, "mini.bracketed")
+if status_ok then
+	bracketed.setup()
 end

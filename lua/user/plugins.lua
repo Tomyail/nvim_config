@@ -125,7 +125,6 @@ return packer.startup(function(use)
 		"onsails/lspkind-nvim",
 		"nvim-lua/popup.nvim",
 		"tami5/lspsaga.nvim",
-		"lukas-reineke/indent-blankline.nvim",
 		"tpope/vim-rhubarb",
 		"folke/lsp-colors.nvim",
 		"ray-x/lsp_signature.nvim",
