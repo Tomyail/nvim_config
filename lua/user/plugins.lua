@@ -84,7 +84,7 @@ return packer.startup(function(use)
 		"MunifTanjim/nui.nvim",
 		"jackMort/ChatGPT.nvim",
 
-		"kylechui/nvim-surround",
+		--[[ "kylechui/nvim-surround", ]]
 
     'echasnovski/mini.nvim'
 	}
@@ -131,7 +131,6 @@ return packer.startup(function(use)
 		{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
 		"nvim-telescope/telescope-frecency.nvim",
 		"tami5/sqlite.lua",
-		"nvim-treesitter/nvim-treesitter-textobjects",
 		"nvim-treesitter/playground",
 		"RRethy/nvim-treesitter-textsubjects",
 		"christoomey/vim-tmux-navigator",

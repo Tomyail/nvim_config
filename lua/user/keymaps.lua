@@ -1,7 +1,5 @@
 local opts = { noremap = true, silent = true }
 
-local term_opts = { silent = true }
-
 -- Shorten function name
 local keymap = vim.api.nvim_set_keymap
 
@@ -9,17 +7,6 @@ local keymap = vim.api.nvim_set_keymap
 keymap("", ",", "<Nop>", opts)
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
-
--- Modes
---   normal_mode = "n",
---   insert_mode = "i",
---   visual_mode = "v",
---   visual_block_mode = "x",
---   term_mode = "t",
---   command_mode = "c",
-
-
--- my favorite
 
 -- Normal --
 -- Better window navigation
@@ -32,11 +19,7 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
--- search selected text via Telescope live_grep
--- https://www.reddit.com/r/neovim/comments/p8wtmn/comment/h9ty0s2/?utm_source=share&utm_medium=web2x&context=3
-keymap('v',"<leader><leader>",'"zy:Telescope live_grep default_text=<C-r>z<CR>', opts)
-
-
+--[[ keymap('v',"<leader><leader>",'"zy:Telescope live_grep default_text=<C-r>z<CR>', opts) ]]
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
 keymap("n", "<C-Down>", ":resize +2<CR>", opts)
@@ -72,16 +55,12 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- disable default map
 vim.g.tmux_navigator_no_mappings = 1
 
-
-keymap('n', '<leader>u', "<cmd>source ~/.config/nvim/lua/user/snippet.lua<cr>", {})
-
-
-vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
-vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
-vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
-vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
-
+--[[ keymap('n', '<leader>u', "<cmd>source ~/.config/nvim/lua/user/snippet.lua<cr>", {}) ]]
+vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
+vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
 vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
 vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
-
-
+--[[ 默认情况下，在 Neovim 中，当提取文本时，光标会移动到被提取文本的开头。有了这个特性，yank 将与以前的功能完全相同，唯一的区别是执行 yank 后光标位置不会改变。 ]]
+vim.keymap.set({ "n", "x" }, "y", "<Plug>(YankyYank)")
