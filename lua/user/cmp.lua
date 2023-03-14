@@ -162,6 +162,7 @@ cmp.setup({
 		{ name = "nvim_lsp", priority = 8 },
 		{ name = "buffer", priority = 8 },
 		--[[ { name = "cmdline" }, ]]
+		{ name = "nvim_lsp_signature_help", priority = 7 },
 		{ name = "luasnip", priority = 7 },
 		{ name = "spell", keyword_length = 3, priority = 5, keyword_pattern = [[\w\+]] },
 		{ name = "dictionary", keyword_length = 3, priority = 5, keyword_pattern = [[\w\+]] }, -- from uga-rosa/cmp-dictionary plug

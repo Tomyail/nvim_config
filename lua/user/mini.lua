@@ -55,11 +55,6 @@ if status_ok then
 	)
 end
 
---[[ local status_ok, session = pcall(require, "mini.sessions") ]]
---[[ if status_ok then ]]
---[[ 	--[[ nvim-tree 和他的工作不协调 ]] ]]
---[[ 	session.setup() ]]
---[[ end ]]
 
 local status_ok, ai = pcall(require, "mini.ai")
 if status_ok then
