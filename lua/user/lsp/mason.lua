@@ -8,7 +8,6 @@ if not status_ok2 then
 	return
 end
 
-
 local utils = require("user.functions")
 
 local supported_server = {
@@ -50,7 +49,6 @@ mason.setup({
 	},
 })
 
-
 mason_lsp.setup({
 	ensure_installed = supported_server[utils.get_running_mode()],
 })
@@ -74,6 +72,7 @@ mason_lsp.setup_handlers({
 		if cfg then
 			opts = vim.tbl_deep_extend("force", cfg, opts)
 		end
+    --[[ print('init server' .. server) ]]
 
 		lspconfig[server].setup(opts)
 	end,

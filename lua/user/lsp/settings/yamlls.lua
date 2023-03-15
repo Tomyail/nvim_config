@@ -12,7 +12,7 @@ return {
 			hover = true,
 			completion = true,
 			validate = true,
-			schemas = schemastore.json.schemas(),
+			schemas = schemastore.yaml.schemas(),
 		},
 	},
 }

@@ -47,16 +47,15 @@ return packer.startup(function(use)
 		},
 		"kyazdani42/nvim-tree.lua",
 		"neovim/nvim-lspconfig",
+
+		"jose-elias-alvarez/null-ls.nvim",
 		{ "williamboman/mason.nvim" },
 		{ "williamboman/mason-lspconfig.nvim" },
-		"jose-elias-alvarez/null-ls.nvim",
-		{
-			"hrsh7th/nvim-cmp",
-			requires = {
-				"L3MON4D3/LuaSnip",
-				"saadparwaiz1/cmp_luasnip",
-			},
-		},
+
+		{ "hrsh7th/nvim-cmp", requires = {
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
+		} },
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
@@ -91,6 +90,7 @@ return packer.startup(function(use)
 
 		--[[ "kylechui/nvim-surround", ]]
 
+		"b0o/SchemaStore.nvim",
 		"echasnovski/mini.nvim",
 	}
 
@@ -99,7 +99,6 @@ return packer.startup(function(use)
 		"kristijanhusak/defx-git",
 		"kristijanhusak/defx-icons",
 
-		"b0o/SchemaStore.nvim",
 
 		{
 			"tzachar/cmp-tabnine",

@@ -45,13 +45,6 @@ M.setup = function()
 	})
 end
 
-local function lsp_highlight_document(client)
-	local status_ok, illuminate = pcall(require, "illuminate")
-	if not status_ok then
-		return
-	end
-	illuminate.on_attach(client)
-end
 
 local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true }
@@ -86,7 +79,6 @@ M.on_attach = function(client, bufnr)
 	M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 	M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
 	lsp_keymaps(bufnr)
-	lsp_highlight_document(client)
 end
 
 function M.enable_format_on_save()

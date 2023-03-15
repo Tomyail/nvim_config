@@ -36,7 +36,6 @@ if status_ok then
 				highlight = " h", -- Highlight surrounding
 				replace = " r", -- Replace surrounding
 				update_n_lines = " n", -- Update `n_lines`
-
 				suffix_last = "l", -- Suffix to search with "prev" method
 				suffix_next = "n", -- Suffix to search with "next" method
 			},
@@ -55,7 +54,6 @@ if status_ok then
 	)
 end
 
-
 local status_ok, ai = pcall(require, "mini.ai")
 if status_ok then
 	ai.setup({
@@ -64,27 +62,22 @@ if status_ok then
 			-- Table with textobject id as fields, textobject specification as values.
 			-- Also use this to disable builtin textobjects. See |MiniAi.config|.
 			custom_textobjects = nil,
-
 			-- Module mappings. Use `''` (empty string) to disable one.
 			mappings = {
 				-- Main textobject prefixes
 				around = "a",
 				inside = "i",
-
 				-- Next/last variants
 				around_next = "an",
 				inside_next = "in",
 				around_last = "al",
 				inside_last = "il",
-
 				-- Move cursor to corresponding edge of `a` textobject
 				goto_left = "g[",
 				goto_right = "g]",
 			},
-
 			-- Number of lines within which textobject is searched
 			n_lines = 50,
-
 			-- How to search for object (first inside current line, then inside
 			-- neighborhood). One of 'cover', 'cover_or_next', 'cover_or_prev',
 			-- 'cover_or_nearest', 'next', 'previous', 'nearest'.
@@ -92,3 +85,13 @@ if status_ok then
 		},
 	})
 end
+
+--[[ local status_ok, completion = pcall(require, "mini.completion") ]]
+--[[ if status_ok then ]]
+--[[ 	completion.setup() ]]
+--[[ end ]]
+
+-- local status_ok, comment = pcall(require, "mini.comment")
+-- if status_ok then
+-- 	comment.setup()
+-- end
