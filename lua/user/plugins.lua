@@ -92,6 +92,7 @@ return packer.startup(function(use)
 
 		"b0o/SchemaStore.nvim",
 		"echasnovski/mini.nvim",
+    "Exafunction/codeium.vim"
 	}
 
 	local enhanced = {
