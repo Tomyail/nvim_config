@@ -9,7 +9,7 @@ local formatting = null_ls.builtins.formatting
 -- local diagnostics = null_ls.builtins.diagnostics
 
 null_ls.setup({
-	debug =false,
+	debug = false,
 	sources = {
 		null_ls.builtins.diagnostics.eslint_d.with({
 			--[[ todo sames to work ,no all eslint disabled ]]
@@ -28,5 +28,6 @@ null_ls.setup({
 		}),
 		formatting.black.with({ extra_args = { "--fast" } }),
 		formatting.stylua,
+		null_ls.builtins.formatting.shfmt,
 	},
 })

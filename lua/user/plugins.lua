@@ -92,7 +92,9 @@ return packer.startup(function(use)
 
 		"b0o/SchemaStore.nvim",
 		"echasnovski/mini.nvim",
-    "Exafunction/codeium.vim"
+    "Exafunction/codeium.vim",
+
+		"mfussenegger/nvim-dap",
 	}
 
 	local enhanced = {
@@ -143,7 +145,6 @@ return packer.startup(function(use)
 		"chentau/marks.nvim",
 		"editorconfig/editorconfig-vim",
 		"tpope/vim-surround",
-		"mfussenegger/nvim-dap",
 		"theHamsta/nvim-dap-virtual-text",
 		"rcarriga/nvim-dap-ui",
 		"Pocco81/DAPInstall.nvim",
