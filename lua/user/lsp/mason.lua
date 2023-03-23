@@ -109,4 +109,13 @@ for _, language in ipairs({ "typescript", "javascript" }) do
     },
   }
 end
-require("nvim-dap-virtual-text").setup()
+local status_ok, dapvirtualtext = pcall(require, "nvim-dap-virtual-text")
+if status_ok then
+  dapvirtualtext.setup()
+end
+
+
+local status_ok, dapui= pcall(require, "dapui")
+if status_ok then
+  dapui.setup()
+end

@@ -100,6 +100,8 @@ return packer.startup(function(use)
     { "mxsdev/nvim-dap-vscode-js", requires = { "mfussenegger/nvim-dap" } },
     "theHamsta/nvim-dap-virtual-text",
     "rcarriga/nvim-dap-ui",
+
+    "brenoprata10/nvim-highlight-colors",
   }
 
   local enhanced = {
@@ -136,7 +138,6 @@ return packer.startup(function(use)
     "nvim-lua/popup.nvim",
     "tami5/lspsaga.nvim",
     "tpope/vim-rhubarb",
-    "folke/lsp-colors.nvim",
     "ray-x/lsp_signature.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
     "nvim-telescope/telescope-frecency.nvim",
@@ -158,7 +159,6 @@ return packer.startup(function(use)
     "ThePrimeagen/harpoon",
     { "nathangrigg/vim-beancount",                ft = { "bean" } },
     "brglng/vim-im-select",
-    "norcalli/nvim-colorizer.lua",
     "karb94/neoscroll.nvim",
     "matbme/JABS.nvim",
     "windwp/nvim-spectre",
