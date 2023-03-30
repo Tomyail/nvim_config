@@ -11,6 +11,7 @@ local formatting = null_ls.builtins.formatting
 null_ls.setup({
 	debug = false,
 	sources = {
+		null_ls.builtins.formatting.rustywind,
 		null_ls.builtins.diagnostics.eslint_d.with({
 			--[[ todo sames to work ,no all eslint disabled ]]
 			condition = function(utils)

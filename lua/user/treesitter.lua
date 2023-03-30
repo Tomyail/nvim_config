@@ -122,23 +122,14 @@ local supported_lang = {
 		"wgsl",
 		"yaml",
 		"zig",
-    "surface"
-  },
+		"surface",
+	},
 	deluxe = "all",
 }
 configs.setup({
 	ensure_installed = supported_lang[utils.get_running_mode()], -- one of "all", "maintained" (parsers with maintainers), or a list of languages
 	sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
 	ignore_install = { "phpdoc" }, -- List of parsers to ignore installing
-	endwise = {
-		enable = true,
-	},
-	autotag = {
-		enable = true,
-	},
-	autopairs = {
-		enable = true,
-	},
 	highlight = {
 		enable = true, -- false will disable the whole extension
 		disable = { "" }, -- list of language that will be disabled
@@ -149,7 +140,6 @@ configs.setup({
 		enable = true,
 		enable_autocmd = false,
 	},
-
 	incremental_selection = {
 		enable = true,
 		keymaps = {
@@ -160,37 +150,49 @@ configs.setup({
 		},
 	},
 
-	-- nvim-treesitter-textsubjects
-	textsubjects = {
+	--[[ "RRethy/nvim-treesitter-endwise", ]]
+	endwise = {
 		enable = true,
-		keymaps = {
-			["."] = "textsubjects-smart",
-			[";"] = "textsubjects-container-outer",
-		},
 	},
+	--[[ "windwp/nvim-ts-autotag", ]]
+	autotag = {
+		enable = true,
+	},
+	--[[ "windwp/nvim-autopairs", ]]
+	autopairs = {
+		enable = true,
+	},
+	-- nvim-treesitter-textsubjects
+	--[[ textsubjects = { ]]
+	--[[ 	enable = true, ]]
+	--[[ 	keymaps = { ]]
+	--[[ 		["."] = "textsubjects-smart", ]]
+	--[[ 		[";"] = "textsubjects-container-outer", ]]
+	--[[ 	}, ]]
+	--[[ }, ]]
 	-- JoosepAlviste/nvim-ts-context-commentstring
-	textobjects = {
-		select = {
-			enable = true,
-
-			-- Automatically jump forward to textobj, similar to targets.vim
-			lookahead = true,
-
-			keymaps = {
-				-- You can use the capture groups defined in textobjects.scm
-				["af"] = "@function.outer",
-				["if"] = "@function.inner",
-				["ac"] = "@class.outer",
-				["ic"] = "@class.inner",
-				["icl"] = "@call.inner",
-				["acl"] = "@call.outer",
-				["ilp"] = "@loop.inner",
-				["ipm"] = "@parameter.inner",
-				["ib"] = "@block.inner",
-				["icn"] = "@conditional.inner",
-			},
-		},
-	},
+	--[[ textobjects = { ]]
+	--[[ 	select = { ]]
+	--[[ 		enable = true, ]]
+	--[[]]
+	--[[ 		-- Automatically jump forward to textobj, similar to targets.vim ]]
+	--[[ 		lookahead = true, ]]
+	--[[]]
+	--[[ 		keymaps = { ]]
+	--[[ 			-- You can use the capture groups defined in textobjects.scm ]]
+	--[[ 			["af"] = "@function.outer", ]]
+	--[[ 			["if"] = "@function.inner", ]]
+	--[[ 			["ac"] = "@class.outer", ]]
+	--[[ 			["ic"] = "@class.inner", ]]
+	--[[ 			["icl"] = "@call.inner", ]]
+	--[[ 			["acl"] = "@call.outer", ]]
+	--[[ 			["ilp"] = "@loop.inner", ]]
+	--[[ 			["ipm"] = "@parameter.inner", ]]
+	--[[ 			["ib"] = "@block.inner", ]]
+	--[[ 			["icn"] = "@conditional.inner", ]]
+	--[[ 		}, ]]
+	--[[ 	}, ]]
+	--[[ }, ]]
 })
 
 -- local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
