@@ -24,6 +24,11 @@ vim.cmd [[
     autocmd!
     autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
   augroup end
+  augroup _quickfix
+  autocmd!
+    autocmd FileType qf nnoremap <buffer> <silent> <C-v> :lua require('user.function').open_qf_file_in_direction("vertical")<CR>
+    autocmd FileType qf nnoremap <buffer> <silent> <C-s> :lua require('user.function').open_qf_file_in_direction("split")<CR>
+  augroup end
 ]]
 
 -- exit win if nvimtree is the only win
