@@ -242,4 +242,20 @@ function M.open_qf_file_in_direction(direction)
 	end
 end
 
+function M.find_files()
+	--[[ https://github.com/nvim-tree/nvim-tree.lua/blob/45400cd7e02027937cd5e49845545e606ecf5a1f/lua/nvim-tree/actions/tree-modifiers/toggles.lua#L29 ]]
+	local filters = require("nvim-tree.explorer.filters")
+	local hidden = not filters.config.filter_dotfiles
+	local git_ignored = not filters.config.filter_git_ignored
+
+	require("telescope.builtin").find_files(
+		require("telescope.themes").get_dropdown({
+			previewer = false,
+			hidden = hidden,
+			no_ignore = git_ignored,
+			no_ignore_parent = git_ignored,
+		})
+	)
+end
+
 return M
