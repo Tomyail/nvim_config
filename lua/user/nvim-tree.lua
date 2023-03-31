@@ -86,7 +86,7 @@ nvim_tree.setup({
 		args = {},
 	},
 	filters = {
-		dotfiles = false,
+		dotfiles = true,
 		custom = {},
 	},
 	git = {
@@ -121,7 +121,7 @@ nvim_tree.setup({
 			},
 		},
 		icons = {
-			webdev_colors = true,
+			--[[ webdev_colors = true, ]]
 			git_placement = "before",
 			padding = " ",
 			symlink_arrow = " ➛ ",
