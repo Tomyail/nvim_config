@@ -64,11 +64,20 @@ cmp.setup({
 			function(...)
 				return cmp_buffer:compare_locality(...)
 			end,
-			cmp.config.compare.locality,
-			cmp.config.compare.recently_used,
+			-- 首先，按照匹配项的匹配程度进行排序。
 			cmp.config.compare.score, -- based on :  score = score + ((#sources - (source_index - 1)) * sorting.priority_weight)
-			cmp.config.compare.offset,
+
+			-- 其次，按照补全项在当前文件中的位置进行排序，更靠近光标的项优先级更高。
+			cmp.config.compare.locality,
+
+			-- 然后，根据补全项的最近使用情况进行排序，最近使用过的补全项优先级更高。
+			cmp.config.compare.recently_used,
+
+			-- 根据补全项在补全源中的相对顺序进行排序。
 			cmp.config.compare.order,
+
+			-- 最后，如果需要，可以根据补全项的文本偏移量进行排序。
+			cmp.config.compare.offset,
 			-- The rest of your comparators...
 		},
 	},
