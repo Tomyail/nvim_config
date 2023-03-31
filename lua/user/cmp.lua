@@ -45,7 +45,16 @@ cmp.setup({
 		end,
 	},
 	enabled = function()
-		return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+		-- disable completion in comments
+		local context = require("cmp.config.context")
+		-- keep command mode completion enabled when cursor is in a comment
+		if vim.api.nvim_get_mode().mode == "c" then
+			return true
+		else
+			return not context.in_treesitter_capture("comment")
+				and not context.in_syntax_group("Comment")
+				and vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+		end
 		-- or cmp_dap.is_dap_buffer()
 	end,
 	sorting = {
@@ -116,7 +125,6 @@ cmp.setup({
 			end
 		end, { "i", "s" }),
 	}),
-
 	formatting = {
 		--[[ fields = { "kind", "abbr", "menu" }, ]]
 		format = function(entry, vim_item)
