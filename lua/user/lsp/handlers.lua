@@ -69,14 +69,22 @@ local function lsp_keymaps(bufnr)
 	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format({ async= true})' ]])
 end
 
+local gps = require("user.gps")
 M.on_attach = function(client, bufnr)
 	local status_cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 	if not status_cmp_ok then
 		return
 	end
 
-
-  require('user.gps').attach(client, bufnr)
+print("Before calling gps.attach")
+gps.attach(client, bufnr)
+print("After calling gps.attach")
+	--[[ local ok, navic = pcall(require, "nvim-navic") ]]
+	--[[ if ok then ]]
+	--[[ 	if client.server_capabilities.documentSymbolProvider then ]]
+	--[[ 		navic.attach(client, bufnr) ]]
+	--[[ 	end ]]
+	--[[ end ]]
 
 	M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 	M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
