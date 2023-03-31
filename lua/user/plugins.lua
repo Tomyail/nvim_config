@@ -103,6 +103,8 @@ return packer.startup(function(use)
 		"rcarriga/nvim-dap-ui",
 
 		"brenoprata10/nvim-highlight-colors",
+		"hoob3rt/lualine.nvim",
+    --[[ "dstein64/vim-startuptime" ]]
 	}
 
 	local enhanced = {
@@ -129,7 +131,6 @@ return packer.startup(function(use)
 			run = "./install.sh",
 			requires = "hrsh7th/nvim-cmp",
 		},
-		"hoob3rt/lualine.nvim",
 		"rcarriga/nvim-notify",
 		"lewis6991/impatient.nvim",
 		"nathom/filetype.nvim",
@@ -151,7 +152,6 @@ return packer.startup(function(use)
 		"chentau/marks.nvim",
 		"editorconfig/editorconfig-vim",
 		"tpope/vim-surround",
-		"Pocco81/DAPInstall.nvim",
 		"shaunsingh/nord.nvim",
 		"folke/tokyonight.nvim",
 		"phaazon/hop.nvim",
@@ -160,7 +160,6 @@ return packer.startup(function(use)
 		"ThePrimeagen/harpoon",
 		{ "nathangrigg/vim-beancount", ft = { "bean" } },
 		"brglng/vim-im-select",
-		"karb94/neoscroll.nvim",
 		"matbme/JABS.nvim",
 		"windwp/nvim-spectre",
 		"MattesGroeger/vim-bookmarks",
@@ -187,7 +186,6 @@ return packer.startup(function(use)
 			requires = { "kyazdani42/nvim-web-devicons" }, --optional
 		},
 		"SmiteshP/nvim-gps",
-		"dstein64/vim-startuptime",
 		{
 			"fgheng/winbar.nvim",
 		},
