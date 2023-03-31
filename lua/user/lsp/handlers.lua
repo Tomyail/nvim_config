@@ -45,7 +45,6 @@ M.setup = function()
 	})
 end
 
-
 local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true }
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -75,6 +74,9 @@ M.on_attach = function(client, bufnr)
 	if not status_cmp_ok then
 		return
 	end
+
+
+  require('user.gps').attach(client, bufnr)
 
 	M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 	M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
@@ -109,6 +111,7 @@ function M.remove_augroup(name)
 		vim.cmd("au! " .. name)
 	end
 end
+
 -- 注册一个自定义命令 LspToggleAutoFormat
 vim.cmd([[ command! LspToggleAutoFormat execute 'lua require("user.lsp.handlers").toggle_format_on_save()' ]])
 

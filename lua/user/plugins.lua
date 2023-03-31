@@ -104,6 +104,7 @@ return packer.startup(function(use)
 
 		"brenoprata10/nvim-highlight-colors",
 		"hoob3rt/lualine.nvim",
+    "SmiteshP/nvim-navic",
     --[[ "dstein64/vim-startuptime" ]]
 	}
 
@@ -184,10 +185,6 @@ return packer.startup(function(use)
 			branch = "v1.x", -- won't receive breaking changes
 			-- branch = "main", -- timely updates
 			requires = { "kyazdani42/nvim-web-devicons" }, --optional
-		},
-		"SmiteshP/nvim-gps",
-		{
-			"fgheng/winbar.nvim",
 		},
 	}
 
