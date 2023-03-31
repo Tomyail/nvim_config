@@ -72,6 +72,17 @@ local spaces = function()
 	return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
 
+local function lsp_client_names()
+	local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+	local clients = {}
+	for _, client in ipairs(vim.lsp.get_active_clients()) do
+		if client.config.filetypes and vim.tbl_contains(client.config.filetypes, buf_ft) then
+			table.insert(clients, client.name)
+		end
+	end
+	return table.concat(clients, ", ")
+end
+
 lualine.setup({
 	options = {
 		icons_enabled = true,
@@ -85,9 +96,16 @@ lualine.setup({
 	sections = {
 		lualine_a = { branch, diagnostics },
 		lualine_b = { mode },
-		lualine_c = bar_c,
+		lualine_c = {
+			lsp_client_names,
+		},
 		-- lualine_x = { "encoding", "fileformat", "filetype" },
-		lualine_x = { diff, spaces, "encoding", filetype },
+		lualine_x = {
+			diff,
+			spaces,
+			"encoding",
+			filetype,
+		},
 		lualine_y = { location },
 		lualine_z = { progress },
 	},
