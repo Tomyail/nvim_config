@@ -65,7 +65,7 @@ ls.config.set_config({
 
 -- The directories will have to be structured like eg. <https://github.com/rafamadriz/friendly-snippets> (include
 -- a similar `package.json`)
-require("luasnip.loaders.from_vscode").load() -- Load snippets from my-snippets folder
+require("luasnip.loaders.from_vscode").lazy_load() -- Load snippets from my-snippets folder
 require'luasnip'.filetype_extend("javascript", {"jsdoc"})
 
 
