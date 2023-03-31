@@ -39,17 +39,3 @@ navic.setup({
 	safe_output = true,
 })
 
-local M = {}
-
-M.attach = function(client, bufnr)
-  print("Client ID:", client.id) -- 输出 client.id 以检查 client 是否正确传递
-  print("Bufnr:", bufnr) -- 输出 bufnr 以检查是否正确传递
-  local status_cmp_ok, _navic = pcall(require, "nvim-navic")
-  if status_cmp_ok then
-    if client.server_capabilities.documentSymbolProvider then
-      _navic.attach(client, bufnr)
-    end
-  end
-end
-
-return M

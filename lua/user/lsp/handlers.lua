@@ -76,15 +76,12 @@ M.on_attach = function(client, bufnr)
 		return
 	end
 
-print("Before calling gps.attach")
-gps.attach(client, bufnr)
-print("After calling gps.attach")
-	--[[ local ok, navic = pcall(require, "nvim-navic") ]]
-	--[[ if ok then ]]
-	--[[ 	if client.server_capabilities.documentSymbolProvider then ]]
-	--[[ 		navic.attach(client, bufnr) ]]
-	--[[ 	end ]]
-	--[[ end ]]
+	local ok, navic = pcall(require, "nvim-navic")
+	if ok then
+		if client.server_capabilities.documentSymbolProvider then
+			navic.attach(client, bufnr)
+		end
+	end
 
 	M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 	M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
