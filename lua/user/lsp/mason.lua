@@ -75,7 +75,7 @@ mason_lsp.setup_handlers({
 })
 
 local _status_ok, dapjs = pcall(require, "dap-vscode-js")
-if status_ok then
+if _status_ok then
 	local path = require("mason-core.path")
 	local debugger_path = path.package_prefix("js-debug-adapter")
 	dapjs.setup({
