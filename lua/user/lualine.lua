@@ -90,7 +90,7 @@ lualine.setup({
 		--[[ theme = "dracula", ]]
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
-		disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline", "defx" },
+		disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline", "defx","TelescopePrompt" },
 		always_divide_middle = true,
 	},
 	sections = {
