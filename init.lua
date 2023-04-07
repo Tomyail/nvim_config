@@ -36,7 +36,10 @@ require("user.chat-gpt")
 --[[ require("user.surround") ]]
 require("user.mini")
 
-if vim.fn.has("nvim-0.8") == 1 then
-	require("user.winbar")
+local nvim_version = vim.fn.eval("split(v:version, '\\.')[0]")
+local nvim_major_version = tonumber(nvim_version)
+
+if nvim_major_version > 0.8 then
+    require("user.winbar")
 end
 
