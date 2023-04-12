@@ -95,8 +95,9 @@ return packer.startup(function(use)
 
 		"b0o/SchemaStore.nvim",
 		"echasnovski/mini.nvim",
-		"Exafunction/codeium.vim",
+		--[[ "Exafunction/codeium.vim", ]]
 		--[[ "jcdickinson/codeium.nvim", ]]
+    "github/copilot.vim",
 
 		{ "mxsdev/nvim-dap-vscode-js", requires = { "mfussenegger/nvim-dap" } },
 		"theHamsta/nvim-dap-virtual-text",
