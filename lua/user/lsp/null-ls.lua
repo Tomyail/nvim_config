@@ -24,7 +24,7 @@ null_ls.setup({
 			--[[ 	return params.root:match("my-monorepo-subdir") ~= nil ]]
 			--[[ end, ]]
 		}),
-		formatting.prettier.with({
+		formatting.prettierd.with({
 			prefer_local = true,
 		}),
 		formatting.black.with({ extra_args = { "--fast" } }),
