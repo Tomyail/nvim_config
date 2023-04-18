@@ -1,4 +1,4 @@
-vim.cmd [[
+vim.cmd([[
   augroup _general_settings
     autocmd!
     autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR>
@@ -30,7 +30,7 @@ vim.cmd [[
     autocmd FileType qf nnoremap <buffer> <silent> <C-v> :lua require('user.functions').open_qf_file_in_direction("vertical")<CR>
     autocmd FileType qf nnoremap <buffer> <silent> <C-s> :lua require('user.functions').open_qf_file_in_direction("split")<CR>
   augroup end
-]]
+]])
 
 -- exit win if nvimtree is the only win
 --[[ vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif" ]]
@@ -42,11 +42,14 @@ vim.cmd [[
 --[[     end ]]
 --[[   end ]]
 --[[ }) ]]
-vim.cmd "autocmd InsertLeave * silent! !im-select com.apple.keylayout.ABC"
-vim.cmd "autocmd InsertEnter * silent! !im-select com.apple.keylayout.ABC"
+vim.cmd("autocmd InsertLeave * silent! !im-select com.apple.keylayout.ABC")
+--[[ vim.cmd "autocmd InsertEnter * silent! !im-select com.apple.keylayout.ABC" ]]
+vim.cmd([[
+  autocmd InsertEnter * lua require('user.functions').check_and_switch_input_method()
+]])
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
-  callback = function()
-    vim.cmd "hi link illuminatedWord LspReferenceText"
-  end,
+    callback = function()
+        vim.cmd("hi link illuminatedWord LspReferenceText")
+    end,
 })
