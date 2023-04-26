@@ -1,4 +1,3 @@
-
 require("user.keymaps")
 require("user.plugins")
 require("user.gps")
@@ -34,6 +33,7 @@ require("user.leap")
 require("user.yanky")
 require("user.chat-gpt")
 --[[ require("user.surround") ]]
+require("user.copilot")
 require("user.mini")
 
 local nvim_version = vim.fn.eval("split(v:version, '\\.')[0]")
