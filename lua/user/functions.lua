@@ -242,6 +242,7 @@ function M.open_qf_file_in_direction(direction)
 	end
 end
 
+-- find files using telescope, set hidden and no_ignore options according to nvim-tree config
 function M.find_files()
 	--[[ https://github.com/nvim-tree/nvim-tree.lua/blob/45400cd7e02027937cd5e49845545e606ecf5a1f/lua/nvim-tree/actions/tree-modifiers/toggles.lua#L29 ]]
 	local filters = require("nvim-tree.explorer.filters")
@@ -256,8 +257,7 @@ function M.find_files()
 	}))
 end
 
-local function switch_to_english() end
-
+-- switch to chinese input method if current char is chinese, otherwise switch to english input method
 function M.check_and_switch_input_method()
 	local bufnr = vim.api.nvim_get_current_buf()
 	local winnr = vim.api.nvim_get_current_win()
@@ -292,6 +292,8 @@ end
 local function trim(s)
 	return s:match("^%s*(.-)%s*$")
 end
+
+-- switch to english input method
 function M.switch_to_english()
 	local os_name = trim(vim.fn.system("uname")):lower()
 	if os_name:match("darwin") then -- macOS
@@ -301,6 +303,7 @@ function M.switch_to_english()
 	end
 end
 
+-- switch to chinese input method
 function M.switch_to_chinese()
   local os_name = trim(vim.fn.system("uname")):lower()
   if os_name:match("darwin") then -- macOS
