@@ -282,9 +282,9 @@ function M.check_and_switch_input_method()
 	--[[ local prev_char = col > prev_offset - 1 and vim.fn.matchstr(line, ".", col - prev_offset) or "" ]]
 	--[[ local next_char = col < #line - next_offset + 1 and vim.fn.matchstr(line, ".", col + next_offset) or "" ]]
 	if is_chinese(current_char) or is_chinese(prev_char) or is_chinese(next_char) then
-    M.switch_to_chinese()
+		M.switch_to_chinese()
 	else
-    M.switch_to_english()
+		M.switch_to_english()
 	end
 end
 
@@ -305,12 +305,12 @@ end
 
 -- switch to chinese input method
 function M.switch_to_chinese()
-  local os_name = trim(vim.fn.system("uname")):lower()
-  if os_name:match("darwin") then -- macOS
-    os.execute("im-select com.apple.inputmethod.SCIM.ITABC")
-  elseif os_name:match("linux") then -- Linux (Ubuntu)
-    os.execute("ibus engine rime")
-  end
+	local os_name = trim(vim.fn.system("uname")):lower()
+	if os_name:match("darwin") then -- macOS
+		os.execute("im-select com.apple.inputmethod.SCIM.ITABC")
+	elseif os_name:match("linux") then -- Linux (Ubuntu)
+		os.execute("ibus engine rime")
+	end
 end
 
 return M
