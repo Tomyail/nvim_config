@@ -105,7 +105,12 @@ return packer.startup(function(use)
 
 		"brenoprata10/nvim-highlight-colors",
 		"hoob3rt/lualine.nvim",
+    {
+		"christoomey/vim-tmux-navigator",
+      lazy =false
+    },
     "SmiteshP/nvim-navic",
+
     --[[ "dstein64/vim-startuptime" ]]
 	}
 
@@ -148,7 +153,6 @@ return packer.startup(function(use)
 		"tami5/sqlite.lua",
 		"nvim-treesitter/playground",
 		"RRethy/nvim-treesitter-textsubjects",
-		"christoomey/vim-tmux-navigator",
 		"https://gitlab.com/yorickpeterse/nvim-window.git",
 		"akinsho/toggleterm.nvim",
 		"chentau/marks.nvim",

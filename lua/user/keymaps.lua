@@ -10,10 +10,18 @@ vim.g.maplocalleader = ","
 
 -- Normal --
 -- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+--[[ keymap("n", "<C-h>", "<C-w>h", opts) ]]
+--[[ keymap("n", "<C-j>", "<C-w>j", opts) ]]
+--[[ keymap("n", "<C-k>", "<C-w>k", opts) ]]
+--[[ keymap("n", "<C-l>", "<C-w>l", opts) ]]
+-- Disable default key mappings
+vim.g.tmux_navigator_no_mappings = 1
+-- Custom key mappings
+vim.api.nvim_set_keymap('n', '<C-h>', ':TmuxNavigateLeft<cr>', {silent = true, noremap = true})
+vim.api.nvim_set_keymap('n', '<C-j>', ':TmuxNavigateDown<cr>', {silent = true, noremap = true})
+vim.api.nvim_set_keymap('n', '<C-k>', ':TmuxNavigateUp<cr>', {silent = true, noremap = true})
+vim.api.nvim_set_keymap('n', '<C-l>', ':TmuxNavigateRight<cr>', {silent = true, noremap = true})
+vim.api.nvim_set_keymap('n', '<C-space>', ':TmuxNavigatePrevious<cr>', {silent = true, noremap = true})
 
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
