@@ -307,7 +307,8 @@ end
 function M.switch_to_chinese()
 	local os_name = trim(vim.fn.system("uname")):lower()
 	if os_name:match("darwin") then -- macOS
-		os.execute("im-select com.apple.inputmethod.SCIM.ITABC")
+		--[[ os.execute("im-select com.apple.inputmethod.SCIM.ITABC") ]]
+		os.execute("im-select im.rime.inputmethod.Squirrel.Hans")
 	elseif os_name:match("linux") then -- Linux (Ubuntu)
 		os.execute("ibus engine rime")
 	end
