@@ -80,7 +80,10 @@ local opts = {
 
 local mappings = {
     ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
-    b = { "<cmd>JABSOpen<cr>", "Buffers" },
+    b = {
+      name ="Buffers",
+      o = {"<cmd>lua require('user.functions').onlyBufferThis()<cr>", "Only"}
+    },
     -- ["b"] = {
     --   "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
     --   "Buffers",
