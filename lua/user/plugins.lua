@@ -40,6 +40,7 @@ return packer.startup(function(use)
 	-- must have: without it, i can't work
 
 	local basic = {
+    "uga-rosa/utf8.nvim",
 		{
 			"nvim-telescope/telescope.nvim",
 			tag = "0.1.x",
