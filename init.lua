@@ -39,7 +39,7 @@ require("user.mini")
 local nvim_version = vim.fn.eval("split(v:version, '\\.')[0]")
 local nvim_major_version = tonumber(nvim_version)
 
-if nvim_major_version > 0.8 then
-    require("user.winbar")
-end
+--[[ if nvim_major_version > 0.8 then ]]
+--[[     require("user.winbar") ]]
+--[[ end ]]
 

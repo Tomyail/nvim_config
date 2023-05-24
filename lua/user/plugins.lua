@@ -1,13 +1,13 @@
 local utils = require("user.functions")
 local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd([[packadd packer.nvim]])
-		return true
-	end
-	return false
+    local fn = vim.fn
+    local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+    if fn.empty(fn.glob(install_path)) > 0 then
+        fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+        vim.cmd([[packadd packer.nvim]])
+        return true
+    end
+    return false
 end
 
 local packer_bootstrap = ensure_packer()
@@ -23,212 +23,223 @@ vim.cmd([[
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
-	return
+    return
 end
 
 -- Have packer use a popup window
 packer.init({
-	display = {
-		open_fn = function()
-			return require("packer.util").float({ border = "rounded" })
-		end,
-	},
+    display = {
+        open_fn = function()
+            return require("packer.util").float({ border = "rounded" })
+        end,
+    },
 })
 
 -- Install your useins here
 return packer.startup(function(use)
-	-- must have: without it, i can't work
+    -- must have: without it, i can't work
 
-	local basic = {
-    "uga-rosa/utf8.nvim",
-		{
-			"nvim-telescope/telescope.nvim",
-			tag = "0.1.x",
-			requires = { { "nvim-lua/plenary.nvim" } },
-		},
-		"kyazdani42/nvim-tree.lua",
-		"neovim/nvim-lspconfig",
+    local basic = {
+        "uga-rosa/utf8.nvim",
+        {
+            "nvim-telescope/telescope.nvim",
+            tag = "0.1.x",
+            requires = { { "nvim-lua/plenary.nvim" } },
+        },
+        "kyazdani42/nvim-tree.lua",
+        "neovim/nvim-lspconfig",
 
-		"jose-elias-alvarez/null-ls.nvim",
-		{ "williamboman/mason.nvim" },
-		{ "williamboman/mason-lspconfig.nvim" },
+        "jose-elias-alvarez/null-ls.nvim",
+        { "williamboman/mason.nvim" },
+        { "williamboman/mason-lspconfig.nvim" },
 
-		{
-			"hrsh7th/nvim-cmp",
-			requires = {
-				"L3MON4D3/LuaSnip",
-				"saadparwaiz1/cmp_luasnip",
-			},
-		},
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-path",
-		"hrsh7th/cmp-cmdline",
-		"hrsh7th/cmp-nvim-lua",
-		"hrsh7th/cmp-nvim-lsp-signature-help",
+        {
+            "hrsh7th/nvim-cmp",
+            requires = {
+                "L3MON4D3/LuaSnip",
+                "saadparwaiz1/cmp_luasnip",
+            },
+        },
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-cmdline",
+        "hrsh7th/cmp-nvim-lua",
+        "hrsh7th/cmp-nvim-lsp-signature-help",
 
-		"folke/which-key.nvim",
-		{
-			"nvim-treesitter/nvim-treesitter",
-			run = "TSUpdate",
-		},
-		"JoosepAlviste/nvim-ts-context-commentstring",
-		"windwp/nvim-autopairs",
-		"windwp/nvim-ts-autotag",
-		"RRethy/nvim-treesitter-endwise",
+        "folke/which-key.nvim",
+        {
+            "nvim-treesitter/nvim-treesitter",
+            run = "TSUpdate",
+        },
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        "windwp/nvim-autopairs",
+        "windwp/nvim-ts-autotag",
+        "RRethy/nvim-treesitter-endwise",
 
-		"numToStr/Comment.nvim", -- Easily comment stuff
+        "numToStr/Comment.nvim", -- Easily comment stuff
 
-		"kdheepak/lazygit.nvim",
-		"lewis6991/gitsigns.nvim",
+        "kdheepak/lazygit.nvim",
+        "lewis6991/gitsigns.nvim",
 
-		"ggandor/leap.nvim",
+        "ggandor/leap.nvim",
 
-		"gbprod/yanky.nvim",
-		"akinsho/bufferline.nvim",
+        "gbprod/yanky.nvim",
+        "akinsho/bufferline.nvim",
 
-		"rafamadriz/friendly-snippets",
+        "rafamadriz/friendly-snippets",
 
-		"MunifTanjim/nui.nvim",
-		"jackMort/ChatGPT.nvim",
+        "MunifTanjim/nui.nvim",
+        "jackMort/ChatGPT.nvim",
 
-		--[[ "kylechui/nvim-surround", ]]
+        --[[ "kylechui/nvim-surround", ]]
 
-		"b0o/SchemaStore.nvim",
-		"echasnovski/mini.nvim",
-		--[[ "Exafunction/codeium.vim", ]]
-		--[[ "jcdickinson/codeium.nvim", ]]
-    "github/copilot.vim",
+        "b0o/SchemaStore.nvim",
+        "echasnovski/mini.nvim",
+        --[[ "Exafunction/codeium.vim", ]]
+        --[[ "jcdickinson/codeium.nvim", ]]
+        "github/copilot.vim",
 
-		{ "mxsdev/nvim-dap-vscode-js", requires = { "mfussenegger/nvim-dap" } },
-		"theHamsta/nvim-dap-virtual-text",
-		"rcarriga/nvim-dap-ui",
+        { "mxsdev/nvim-dap-vscode-js", requires = { "mfussenegger/nvim-dap" } },
+        "theHamsta/nvim-dap-virtual-text",
+        "rcarriga/nvim-dap-ui",
 
-		"brenoprata10/nvim-highlight-colors",
-		"hoob3rt/lualine.nvim",
-    {
-		"christoomey/vim-tmux-navigator",
-      lazy =false
-    },
-    "SmiteshP/nvim-navic",
+        "brenoprata10/nvim-highlight-colors",
+        "hoob3rt/lualine.nvim",
+        {
+            "christoomey/vim-tmux-navigator",
+            lazy = false,
+        },
+        {
+            "utilyre/barbecue.nvim",
+            tag = "*",
+            requires = {
+                "SmiteshP/nvim-navic",
+                --[[ "nvim-tree/nvim-web-devicons", -- optional dependency ]]
+            },
+            --[[ after = "nvim-web-devicons", -- keep this if you're using NvChad ]]
+            config = function()
+                require("barbecue").setup()
+            end,
+        },
 
-    --[[ "dstein64/vim-startuptime" ]]
-	}
+        --[[ "dstein64/vim-startuptime" ]]
+    }
 
-	local enhanced = {
-		"kyazdani42/nvim-web-devicons",
-		"kristijanhusak/defx-git",
-		"kristijanhusak/defx-icons",
+    local enhanced = {
+        "kyazdani42/nvim-web-devicons",
+        "kristijanhusak/defx-git",
+        "kristijanhusak/defx-icons",
 
-		{
-			"tzachar/cmp-tabnine",
-			config = function()
-				local tabnine = require("cmp_tabnine.config")
-				tabnine:setup({
-					max_lines = 1000,
-					max_num_results = 20,
-					sort = true,
-					run_on_every_keystroke = true,
-					snippet_placeholder = "..",
-					ignored_file_types = { -- default is not to ignore
-						-- uncomment to ignore in lua:
-						-- lua = true
-					},
-				})
-			end,
-			run = "./install.sh",
-			requires = "hrsh7th/nvim-cmp",
-		},
-		"rcarriga/nvim-notify",
-		"lewis6991/impatient.nvim",
-		"nathom/filetype.nvim",
-		"moll/vim-bbye",
-		"antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
-		"onsails/lspkind-nvim",
-		"nvim-lua/popup.nvim",
-		"tami5/lspsaga.nvim",
-		"tpope/vim-rhubarb",
-		"ray-x/lsp_signature.nvim",
-		{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-		"nvim-telescope/telescope-frecency.nvim",
-		"tami5/sqlite.lua",
-		"nvim-treesitter/playground",
-		"RRethy/nvim-treesitter-textsubjects",
-		"https://gitlab.com/yorickpeterse/nvim-window.git",
-		"akinsho/toggleterm.nvim",
-		"chentau/marks.nvim",
-		"editorconfig/editorconfig-vim",
-		"tpope/vim-surround",
-		"shaunsingh/nord.nvim",
-		"folke/tokyonight.nvim",
-		"phaazon/hop.nvim",
-		"ggandor/lightspeed.nvim",
-		"unblevable/quick-scope",
-		"ThePrimeagen/harpoon",
-		{ "nathangrigg/vim-beancount", ft = { "bean" } },
-		"brglng/vim-im-select",
-		"matbme/JABS.nvim",
-		"windwp/nvim-spectre",
-		"MattesGroeger/vim-bookmarks",
-		{
-			"folke/trouble.nvim",
-			requires = "kyazdani42/nvim-web-devicons",
-		},
-		"simrat39/symbols-outline.nvim",
-		"tmux-plugins/vim-tmux-focus-events",
-		{
-			"zbirenbaum/copilot.lua",
-			event = { "VimEnter" },
-			config = function()
-				vim.defer_fn(function()
-					require("user.copilot")
-				end, 100)
-			end,
-		},
-		"zbirenbaum/copilot-cmp",
-		{
-			"ghillb/cybu.nvim",
-			branch = "v1.x", -- won't receive breaking changes
-			-- branch = "main", -- timely updates
-			requires = { "kyazdani42/nvim-web-devicons" }, --optional
-		},
-	}
+        {
+            "tzachar/cmp-tabnine",
+            config = function()
+                local tabnine = require("cmp_tabnine.config")
+                tabnine:setup({
+                    max_lines = 1000,
+                    max_num_results = 20,
+                    sort = true,
+                    run_on_every_keystroke = true,
+                    snippet_placeholder = "..",
+                    ignored_file_types = { -- default is not to ignore
+                        -- uncomment to ignore in lua:
+                        -- lua = true
+                    },
+                })
+            end,
+            run = "./install.sh",
+            requires = "hrsh7th/nvim-cmp",
+        },
+        "rcarriga/nvim-notify",
+        "lewis6991/impatient.nvim",
+        "nathom/filetype.nvim",
+        "moll/vim-bbye",
+        "antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
+        "onsails/lspkind-nvim",
+        "nvim-lua/popup.nvim",
+        "tami5/lspsaga.nvim",
+        "tpope/vim-rhubarb",
+        "ray-x/lsp_signature.nvim",
+        { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+        "nvim-telescope/telescope-frecency.nvim",
+        "tami5/sqlite.lua",
+        "nvim-treesitter/playground",
+        "RRethy/nvim-treesitter-textsubjects",
+        "https://gitlab.com/yorickpeterse/nvim-window.git",
+        "akinsho/toggleterm.nvim",
+        "chentau/marks.nvim",
+        "editorconfig/editorconfig-vim",
+        "tpope/vim-surround",
+        "shaunsingh/nord.nvim",
+        "folke/tokyonight.nvim",
+        "phaazon/hop.nvim",
+        "ggandor/lightspeed.nvim",
+        "unblevable/quick-scope",
+        "ThePrimeagen/harpoon",
+        { "nathangrigg/vim-beancount", ft = { "bean" } },
+        "brglng/vim-im-select",
+        "matbme/JABS.nvim",
+        "windwp/nvim-spectre",
+        "MattesGroeger/vim-bookmarks",
+        {
+            "folke/trouble.nvim",
+            requires = "kyazdani42/nvim-web-devicons",
+        },
+        "simrat39/symbols-outline.nvim",
+        "tmux-plugins/vim-tmux-focus-events",
+        {
+            "zbirenbaum/copilot.lua",
+            event = { "VimEnter" },
+            config = function()
+                vim.defer_fn(function()
+                    require("user.copilot")
+                end, 100)
+            end,
+        },
+        "zbirenbaum/copilot-cmp",
+        {
+            "ghillb/cybu.nvim",
+            branch = "v1.x", -- won't receive breaking changes
+            -- branch = "main", -- timely updates
+            requires = { "kyazdani42/nvim-web-devicons" }, --optional
+        },
+    }
 
-	local deluxe = {
-		"ahmedkhalf/project.nvim",
-		"goolord/alpha-nvim",
-		"RRethy/vim-illuminate",
-	}
+    local deluxe = {
+        "ahmedkhalf/project.nvim",
+        "goolord/alpha-nvim",
+        "RRethy/vim-illuminate",
+    }
 
-	local function merge(t1, t2)
-		for k, v in pairs(t2) do
-			if (type(v) == "table") and (type(t1[k] or false) == "table") then
-				merge(t1[k], t2[k])
-			else
-				t1[k] = v
-			end
-		end
-		return t1
-	end
+    local function merge(t1, t2)
+        for k, v in pairs(t2) do
+            if (type(v) == "table") and (type(t1[k] or false) == "table") then
+                merge(t1[k], t2[k])
+            else
+                t1[k] = v
+            end
+        end
+        return t1
+    end
 
-	local plugins = {}
-	local running_mode = utils.get_running_mode()
-	if running_mode == "basic" then
-		plugins = merge({}, basic)
-	elseif running_mode == "enhanced" then
-		plugins = merge(merge({}, basic), enhanced)
-	elseif running_mode == "deluxe" then
-		plugins = merge(merge(merge({}, basic), enhanced), deluxe)
-	end
+    local plugins = {}
+    local running_mode = utils.get_running_mode()
+    if running_mode == "basic" then
+        plugins = merge({}, basic)
+    elseif running_mode == "enhanced" then
+        plugins = merge(merge({}, basic), enhanced)
+    elseif running_mode == "deluxe" then
+        plugins = merge(merge(merge({}, basic), enhanced), deluxe)
+    end
 
-	for k, v in ipairs(plugins) do
-		-- print(k, v)
-		use(v)
-	end
+    for k, v in ipairs(plugins) do
+        -- print(k, v)
+        use(v)
+    end
 
-	-- Automatically set up your configuration after cloning packer.nvim
-	-- Put this at the end after all useins
-	if packer_bootstrap then
-		require("packer").sync()
-	end
+    -- Automatically set up your configuration after cloning packer.nvim
+    -- Put this at the end after all useins
+    if packer_bootstrap then
+        require("packer").sync()
+    end
 end)
