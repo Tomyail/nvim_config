@@ -159,9 +159,9 @@ configs.setup({
 		enable = true,
 	},
 	--[[ "windwp/nvim-autopairs", ]]
-	autopairs = {
-		enable = true,
-	},
+	--[[ autopairs = { ]]
+	--[[ 	enable = true, ]]
+	--[[ }, ]]
 	-- nvim-treesitter-textsubjects
 	--[[ textsubjects = { ]]
 	--[[ 	enable = true, ]]
