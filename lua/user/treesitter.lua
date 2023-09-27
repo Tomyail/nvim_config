@@ -8,6 +8,7 @@ local utils = require("user.functions")
 local supported_lang = {
 	-- list installled for n in *; do printf '%s,\n' "${n%.*}"; done
 	basic = {
+    "astro",
 		"bash",
 		"c",
 		"cmake",

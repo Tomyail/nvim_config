@@ -57,6 +57,7 @@ return {
     "typescript",
     "typescriptreact",
     "svelte",
-    "vue"
+    "vue",
+    "astro"
   },
 }
