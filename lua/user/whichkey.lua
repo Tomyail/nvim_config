@@ -81,8 +81,12 @@ local opts = {
 local mappings = {
     ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
     b = {
-      name ="Buffers",
-      o = {"<cmd>lua require('user.functions').onlyBufferThis()<cr>", "Only"}
+        name = "Buffers",
+        o = { "<cmd>BufferLineCloseOthers<cr>", "Close Others" },
+        h = { "<cmd>BufferLineCloseLeft<cr>", "Close Left" },
+        l = { "<cmd>BufferLineCloseRight<cr>", "Close Right" },
+        H = { "<cmd>BufferLineMovePrev<cr>", "Move Prev" },
+        L = { "<cmd>BufferLineMoveNext<cr>", "Move Next" },
     },
     -- ["b"] = {
     --   "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",

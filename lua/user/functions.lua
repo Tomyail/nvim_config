@@ -323,16 +323,5 @@ function M.switch_to_chinese()
 end
 
 
--- close all buffer except current buffer
-function M.onlyBufferThis()
-  local current_bufnr = vim.api.nvim_get_current_buf()
-  local open_buffers = vim.api.nvim_list_bufs()
-  for _, bufnr in ipairs(open_buffers) do
-    if bufnr ~= current_bufnr then
-      vim.api.nvim_buf_delete(bufnr, { force = true })
-    end
-  end
-end
-
 
 return M
