@@ -121,14 +121,7 @@ local mappings = {
         u = { "<cmd>lua require'dapui'.toggle()<cr>", "UI" },
         x = { "<cmd>lua require'dap'.terminate()<cr>", "Exit" },
     },
-    p = {
-        name = "Packer",
-        c = { "<cmd>PackerCompile<cr>", "Compile" },
-        i = { "<cmd>PackerInstall<cr>", "Install" },
-        s = { "<cmd>PackerSync<cr>", "Sync" },
-        S = { "<cmd>PackerStatus<cr>", "Status" },
-        u = { "<cmd>PackerUpdate<cr>", "Update" },
-    },
+    p = { "<cmd>lua require('telescope').extensions.yank_history.yank_history()<cr>", "Show yank_history" },
     o = {
         name = "Options",
         w = { '<cmd>lua require("user.functions").toggle_option("wrap")<cr>', "Wrap" },
