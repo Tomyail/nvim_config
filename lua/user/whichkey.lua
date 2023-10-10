@@ -79,7 +79,6 @@ local opts = {
 }
 
 local mappings = {
-    ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
     b = {
         name = "Buffers",
         o = { "<cmd>BufferLineCloseOthers<cr>", "Close Others" },
@@ -88,15 +87,9 @@ local mappings = {
         H = { "<cmd>BufferLineMovePrev<cr>", "Move Prev" },
         L = { "<cmd>BufferLineMoveNext<cr>", "Move Next" },
     },
-    -- ["b"] = {
-    --   "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
-    --   "Buffers",
-    -- },
     ["/"] = { '<cmd>lua require("Comment.api").toggle.linewise.current()<CR>', "Comment" },
     ["w"] = { "<cmd>w!<CR>", "Save" },
     ["q"] = { '<cmd>lua require("user.functions").delete_buff()<cr>', "Quit" },
-    -- ["q"] = { '<cmd>lua require("user.functions").smart_quit()<CR>', "Quit" },
-    ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
     ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
     ["f"] = {
         "<cmd>lua require('user.functions').find_files()<cr>",
@@ -130,12 +123,12 @@ local mappings = {
         s = { '<cmd>lua require("user.functions").toggle_option("spell")<cr>', "Spell" },
         t = { '<cmd>lua require("user.functions").toggle_tabline()<cr>', "Tabline" },
     },
-    r = {
-        name = "Replace",
-        r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
-        w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" },
-        f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" },
-    },
+    --[[ r = { ]]
+    --[[     name = "Replace", ]]
+    --[[     r = { "<cmd>lua require('spectre').open()<cr>", "Replace" }, ]]
+    --[[     w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" }, ]]
+    --[[     f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" }, ]]
+    --[[ }, ]]
     g = {
         name = "Git",
         g = { "<cmd>LazyGit<CR>", "Lazygit" },
@@ -216,30 +209,30 @@ local mappings = {
         k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
         C = { "<cmd>Telescope commands<cr>", "Commands" },
     },
-    t = {
-        name = "Terminal",
-        ["1"] = { ":1ToggleTerm<cr>", "1" },
-        ["2"] = { ":2ToggleTerm<cr>", "2" },
-        ["3"] = { ":3ToggleTerm<cr>", "3" },
-        ["4"] = { ":4ToggleTerm<cr>", "4" },
-        n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
-        u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
-        t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
-        p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
-        f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
-        h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
-        v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
-    },
-    T = {
-        name = "Treesitter",
-        h = { "<cmd>TSHighlightCapturesUnderCursor<cr>", "Highlight" },
-        p = { "<cmd>TSPlaygroundToggle<cr>", "Playground" },
-    },
-    m = {
-        name = "Mark",
-        a = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "Add mark" },
-        m = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "Toggle mark menu" },
-    },
+    --[[ t = { ]]
+    --[[     name = "Terminal", ]]
+    --[[     ["1"] = { ":1ToggleTerm<cr>", "1" }, ]]
+    --[[     ["2"] = { ":2ToggleTerm<cr>", "2" }, ]]
+    --[[     ["3"] = { ":3ToggleTerm<cr>", "3" }, ]]
+    --[[     ["4"] = { ":4ToggleTerm<cr>", "4" }, ]]
+    --[[     n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" }, ]]
+    --[[     u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" }, ]]
+    --[[     t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" }, ]]
+    --[[     p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" }, ]]
+    --[[     f = { "<cmd>ToggleTerm direction=float<cr>", "Float" }, ]]
+    --[[     h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" }, ]]
+    --[[     v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" }, ]]
+    --[[ }, ]]
+    --[[ T = { ]]
+    --[[     name = "Treesitter", ]]
+    --[[     h = { "<cmd>TSHighlightCapturesUnderCursor<cr>", "Highlight" }, ]]
+    --[[     p = { "<cmd>TSPlaygroundToggle<cr>", "Playground" }, ]]
+    --[[ }, ]]
+    --[[ m = { ]]
+    --[[     name = "Mark", ]]
+    --[[     a = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "Add mark" }, ]]
+    --[[     m = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "Toggle mark menu" }, ]]
+    --[[ }, ]]
 }
 local vopts = {
     mode = "v", -- VISUAL mode
