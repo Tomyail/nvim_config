@@ -39,8 +39,8 @@ local function on_attach(bufnr)
   --[[ vim.keymap.set('n', '<Space><Space>', api.node.open.preview, opts('Open Preview')) ]]
   --[[ vim.keymap.set('n', 'K', api.node.navigate.sibling.first, opts('First Sibling')) ]]
   --[[ vim.keymap.set('n', 'J', api.node.navigate.sibling.last, opts('Last Sibling')) ]]
-  --[[ vim.keymap.set('n', 'I', api.tree.toggle_gitignore_filter, opts('Toggle Git Ignore')) ]]
-  --[[ vim.keymap.set('n', '.', api.tree.toggle_hidden_filter, opts('Toggle Dotfiles')) ]]
+  vim.keymap.set('n', 'I', api.tree.toggle_gitignore_filter, opts('Toggle Git Ignore'))
+  vim.keymap.set('n', '.', api.tree.toggle_hidden_filter, opts('Toggle Dotfiles'))
   --[[ vim.keymap.set('n', 'R', api.tree.reload, opts('Refresh')) ]]
   --[[ vim.keymap.set('n', 'N', api.fs.create, opts('Create')) ]]
   --[[ vim.keymap.set('n', 'd', api.fs.remove, opts('Delete')) ]]
