@@ -3,6 +3,8 @@ if not status_ok then
 	return
 end
 
+require('nvim-treesitter.configs').setup {}
+-- nvim-ts-context-commentstring is set up automatically
 local utils = require("user.functions")
 
 local supported_lang = {
@@ -139,10 +141,6 @@ configs.setup({
 		additional_vim_regex_highlighting = true,
 	},
 	indent = { enable = true, disable = { "yaml" } },
-	context_commentstring = {
-		enable = true,
-		enable_autocmd = false,
-	},
 	incremental_selection = {
 		enable = true,
 		keymaps = {

@@ -41,10 +41,10 @@ local function on_attach(bufnr)
   --[[ vim.keymap.set('n', 'J', api.node.navigate.sibling.last, opts('Last Sibling')) ]]
   vim.keymap.set('n', 'I', api.tree.toggle_gitignore_filter, opts('Toggle Git Ignore'))
   vim.keymap.set('n', '.', api.tree.toggle_hidden_filter, opts('Toggle Dotfiles'))
-  --[[ vim.keymap.set('n', 'R', api.tree.reload, opts('Refresh')) ]]
-  --[[ vim.keymap.set('n', 'N', api.fs.create, opts('Create')) ]]
-  --[[ vim.keymap.set('n', 'd', api.fs.remove, opts('Delete')) ]]
-  --[[ vim.keymap.set('n', 'r', api.fs.rename, opts('Rename')) ]]
+  vim.keymap.set('n', 'R', api.tree.reload, opts('Refresh'))
+  vim.keymap.set('n', 'N', api.fs.create, opts('Create'))
+  vim.keymap.set('n', 'd', api.fs.remove, opts('Delete'))
+  vim.keymap.set('n', 'r', api.fs.rename, opts('Rename'))
   --[[ vim.keymap.set('n', '<C-r>', api.fs.rename_sub, opts('Rename: Omit Filename')) ]]
   --[[ vim.keymap.set('n', 'x', api.fs.cut, opts('Cut')) ]]
   --[[ vim.keymap.set('n', 'c', api.fs.copy.node, opts('Copy')) ]]
