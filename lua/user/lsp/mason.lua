@@ -15,6 +15,8 @@ local supported_server = {
 		--[[ "jsonls", ]]
 		--[[ "lua_ls", ]]
 		--[[ "yamlls", ]]
+		"vuels", -- for vue 2
+		"tsserver",
 	},
 	enhanced = {
 		"cssls",

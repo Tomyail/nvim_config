@@ -38,4 +38,4 @@ notify.setup {
   },
 }
 
-vim.notify = notify
+--[[ vim.notify = notify ]]
