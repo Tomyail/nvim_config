@@ -47,9 +47,9 @@ local function on_attach(bufnr)
   vim.keymap.set('n', 'r', api.fs.rename, opts('Rename'))
   --[[ vim.keymap.set('n', '<C-r>', api.fs.rename_sub, opts('Rename: Omit Filename')) ]]
   --[[ vim.keymap.set('n', 'x', api.fs.cut, opts('Cut')) ]]
-  --[[ vim.keymap.set('n', 'c', api.fs.copy.node, opts('Copy')) ]]
-  --[[ vim.keymap.set('n', 'p', api.fs.paste, opts('Paste')) ]]
-  --[[ vim.keymap.set('n', 'y', api.fs.copy.filename, opts('Copy Name')) ]]
+  vim.keymap.set('n', 'c', api.fs.copy.node, opts('Copy'))
+  vim.keymap.set('n', 'p', api.fs.paste, opts('Paste'))
+  vim.keymap.set('n', 'y', api.fs.copy.filename, opts('Copy Name'))
   --[[ vim.keymap.set('n', 'Y', api.fs.copy.relative_path, opts('Copy Relative Path')) ]]
   --[[ vim.keymap.set('n', 'yy', api.fs.copy.absolute_path, opts('Copy Absolute Path')) ]]
   --[[ vim.keymap.set('n', '[c', api.node.navigate.git.prev, opts('Prev Git')) ]]
