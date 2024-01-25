@@ -86,11 +86,16 @@ if status_ok then
 	})
 end
 
---[[ local status_ok, completion = pcall(require, "mini.completion") ]]
---[[ if status_ok then ]]
---[[ 	completion.setup() ]]
---[[ end ]]
+local status_ok, starter = pcall(require, "mini.starter")
+if status_ok then
+	starter.setup()
+end
 
+
+local status_ok, sessions = pcall(require, "mini.sessions")
+if status_ok then
+	sessions.setup()
+end
 -- local status_ok, comment = pcall(require, "mini.comment")
 -- if status_ok then
 -- 	comment.setup()
