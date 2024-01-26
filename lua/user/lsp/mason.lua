@@ -17,6 +17,8 @@ local supported_server = {
 		--[[ "yamlls", ]]
 		"vuels", -- for vue 2
 		"tsserver",
+		"elixirls",
+		"tailwindcss",
 	},
 	enhanced = {
 		"cssls",
