@@ -15,6 +15,19 @@ vim.opt.rtp:prepend(lazypath)
 local basic = {
   "uga-rosa/utf8.nvim",
   {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    branch = "canary",
+    dependencies = {
+      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+      { "nvim-lua/plenary.nvim" },  -- for curl, log wrapper
+    },
+    opts = {
+      debug = true, -- Enable debugging
+      -- See Configuration section for rest
+    },
+    -- See Commands section for default commands if you want to lazy load on them
+  },
+  {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.3',
     dependencies = { 'nvim-lua/plenary.nvim' }
@@ -25,13 +38,13 @@ local basic = {
   "jose-elias-alvarez/null-ls.nvim",
   { "williamboman/mason.nvim" },
   { "williamboman/mason-lspconfig.nvim" },
-{
-	"L3MON4D3/LuaSnip",
-	-- follow latest release.
-	version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-	-- install jsregexp (optional!).
-	build = "make install_jsregexp"
-},
+  {
+    "L3MON4D3/LuaSnip",
+    -- follow latest release.
+    version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    -- install jsregexp (optional!).
+    build = "make install_jsregexp"
+  },
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -70,12 +83,19 @@ local basic = {
   "rafamadriz/friendly-snippets",
 
   "MunifTanjim/nui.nvim",
-  "jackMort/ChatGPT.nvim",
 
 
   "b0o/SchemaStore.nvim",
   "echasnovski/mini.nvim",
-  "github/copilot.vim",
+  --[[ "github/copilot.vim", ]]
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({})
+    end,
+  },
 
   { "mxsdev/nvim-dap-vscode-js", dependencies = { "mfussenegger/nvim-dap" } },
   "theHamsta/nvim-dap-virtual-text",
@@ -116,4 +136,3 @@ local opts = {
   -- refer to the configuration section below
 }
 require("lazy").setup(plugins, opts)
-

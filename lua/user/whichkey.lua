@@ -258,7 +258,6 @@ local vopts = {
     noremap = true, -- use `noremap` when creating keymaps
     nowait = true, -- use `nowait` when creating keymaps
 }
-local chatgpt = require("chatgpt")
 local vmappings = {
     ["/"] = { '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', "Comment" },
     s = { "<esc><cmd>'<,'>SnipRun<cr>", "Run range" },
@@ -266,15 +265,6 @@ local vmappings = {
     -- search selected text via Telescope live_grep
     -- https://www.reddit.com/r/neovim/comments/p8wtmn/comment/h9ty0s2/?utm_source=share&utm_medium=web2x&context=3
     ["<leader>"] = { '"zy:Telescope live_grep default_text=<C-r>z<CR>', "Global Search" },
-    c = {
-        name = "chatgpt",
-        c = {
-            function()
-                chatgpt.edit_with_instructions()
-            end,
-            "Edit with instructions",
-        },
-    },
 }
 
 local m_opts = {
