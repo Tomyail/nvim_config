@@ -31,9 +31,25 @@ local basic = {
 			{ "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
 			{ "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
 		},
-		opts = {
-			-- See Configuration section for rest
-		},
+		config = function()
+			local prompts = require("CopilotChat.prompts")
+			local select = require("CopilotChat.select")
+			require("CopilotChat").setup({
+        model = 'gpt-4',
+        --[[ model = 'gpt-3.5-turbo', ]]
+				prompts = {
+					Explain = {
+						prompt = "/COPILOT_EXPLAIN 将上述代码的解释写为文本段落",
+					},
+					CommitStaged = {
+						prompt = "使用 commitizen convention 编写更改的提交标题。确保标题最多包含 50 个字符。 使用 gitcommit 语言将整个消息包装在代码块中,并用中文返回",
+						selection = function(source)
+							return select.gitdiff(source, true)
+						end,
+					},
+				},
+			})
+		end,
 		-- See Commands section for default commands if you want to lazy load on them
 	},
 	{
