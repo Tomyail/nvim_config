@@ -48,9 +48,19 @@ cmp.setup({
 		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 		["<C-x>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 		["<ESC>"] = cmp.mapping.abort(),
-		["<CR>"] = cmp.mapping.confirm({
-			-- 按下回车，如果没有选择任何选项，select=true会自动选择第一个选项
-			select = true,
+		["<CR>"] = cmp.mapping({
+      -- 在插入模式, 如果当前没有选择, 按下回车后是回车,如果当前有选择, 按下回车后是确认选择
+			i = function(fallback)
+				if cmp.visible() and cmp.get_active_entry() then
+					cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+				else
+					fallback()
+				end
+			end,
+      -- 在选择模式, 按下回车后是确认选择
+			s = cmp.mapping.confirm({ select = true }),
+      -- 在命令模式, 按下回车后是确认选择, 并且会替换
+			c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
 		}),
 	}),
 	formatting = {
