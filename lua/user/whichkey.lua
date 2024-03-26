@@ -264,21 +264,45 @@ local m_opts = {
 	noremap = true, -- use `noremap` when creating keymaps
 	nowait = true, -- use `nowait` when creating keymaps
 }
-
+local harpoon = require("harpoon")
+harpoon.setup({})
 local m_mappings = {
-	a = { "<cmd>BookmarkAnnotate<cr>", "Annotate" },
-	c = { "<cmd>BookmarkClear<cr>", "Clear" },
-	m = { "<cmd>BookmarkToggle<cr>", "Toggle" },
-	h = { '<cmd>lua require("harpoon.mark").add_file()<cr>', "Harpoon" },
-	j = { "<cmd>BookmarkNext<cr>", "Next" },
-	k = { "<cmd>BookmarkPrev<cr>", "Prev" },
-	s = { "<cmd>BookmarkShowAll<cr>", "Prev" },
-	-- s = {
-	--   "<cmd>lua require('telescope').extensions.vim_bookmarks.all({ hide_filename=false, prompt_title=\"bookmarks\", shorten_path=false })<cr>",
-	--   "Show",
-	-- },
-	x = { "<cmd>BookmarkClearAll<cr>", "Clear All" },
-	u = { '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', "Harpoon UI" },
+	a = {
+		function()
+			harpoon:list():append()
+		end,
+		"append mark",
+	},
+	["1"] = {
+		function()
+			harpoon:list():select(1)
+		end,
+		"select 1",
+	},
+	["2"] = {
+		function()
+			harpoon:list():select(2)
+		end,
+		"select 2",
+	},
+	["3"] = {
+		function()
+			harpoon:list():select(3)
+		end,
+		"select 3",
+	},
+	u = {
+		function()
+			harpoon.ui:toggle_quick_menu(harpoon:list())
+		end,
+    "toggle quick menu",
+	},
+  c = {
+    function()
+      harpoon:list():clear()
+    end,
+    "clear all",
+  },
 }
 
 -- local ctrl_opts = {

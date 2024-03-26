@@ -172,6 +172,11 @@ local basic = {
 			-- see below for full list of options 👇
 		},
 	},
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
 }
 
 local plugins = {}
