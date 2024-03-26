@@ -1,209 +1,122 @@
--- set completeopt=menuone,noinsert,noselect
--- inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
--- inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
 local cmp_status_ok, cmp = pcall(require, "cmp")
 if not cmp_status_ok then
 	return
 end
 
-local snip_status_ok, luasnip = pcall(require, "luasnip")
-if not snip_status_ok then
-	return
-end
-
-local snip_status_ok, cmp_buffer = pcall(require, "cmp_buffer")
-if not snip_status_ok then
-	return
-end
-
-require("luasnip/loaders/from_vscode").lazy_load()
-
--- 目的是检查光标是否在行的开始位置或者位于一个空白字符之后
-local check_backspace = function()
-	local col = vim.fn.col(".") - 1
-	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
-end
-local icons = require("user.icons")
-
-local kind_icons = icons.kind
-
 vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
-vim.api.nvim_set_hl(0, "CmpItemKindTabnine", { fg = "#CA42F0" })
 vim.api.nvim_set_hl(0, "CmpItemKindEmoji", { fg = "#FDE030" })
 vim.api.nvim_set_hl(0, "CmpItemKindCrate", { fg = "#F64D00" })
--- local lspkind = require'lspkind'
-
-local has_words_before = function()
-	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
 
 cmp.setup({
 	snippet = {
 		expand = function(args)
-			luasnip.lsp_expand(args.body)
+			require("luasnip").lsp_expand(args.body)
 		end,
 	},
 	enabled = function()
-		-- disable completion in comments
 		local context = require("cmp.config.context")
 		-- keep command mode completion enabled when cursor is in a comment
 		if vim.api.nvim_get_mode().mode == "c" then
 			return true
 		else
-			return not context.in_treesitter_capture("comment")
-				and not context.in_syntax_group("Comment")
-				and vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+			return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
 		end
 		-- or cmp_dap.is_dap_buffer()
 	end,
 	sorting = {
-		priority_weight = 1.0,
+		priority_weight = 2,
 		comparators = {
-			function(...)
-				return cmp_buffer:compare_locality(...)
-			end,
-			-- 首先，按照匹配项的匹配程度进行排序。
-			cmp.config.compare.score, -- based on :  score = score + ((#sources - (source_index - 1)) * sorting.priority_weight)
+			require("copilot_cmp.comparators").prioritize,
 
-			-- 其次，按照补全项在当前文件中的位置进行排序，更靠近光标的项优先级更高。
-			cmp.config.compare.locality,
-
-			-- 然后，根据补全项的最近使用情况进行排序，最近使用过的补全项优先级更高。
-			cmp.config.compare.recently_used,
-
-			-- 根据补全项在补全源中的相对顺序进行排序。
-			cmp.config.compare.order,
-
-			-- 最后，如果需要，可以根据补全项的文本偏移量进行排序。
+			-- Below is the default comparitor list and order for nvim-cmp
 			cmp.config.compare.offset,
-			-- The rest of your comparators...
+			-- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+			cmp.config.compare.exact,
+			cmp.config.compare.score,
+			cmp.config.compare.recently_used,
+			cmp.config.compare.locality,
+			cmp.config.compare.kind,
+			cmp.config.compare.sort_text,
+			cmp.config.compare.length,
+			cmp.config.compare.order,
 		},
 	},
 	mapping = cmp.mapping.preset.insert({
-		["<C-k>"] = cmp.mapping.select_prev_item(),
-		["<C-j>"] = cmp.mapping.select_next_item(),
-		-- Change choice nodes for luasnip
-		["<C-p>"] = cmp.mapping(function(fallback)
-			if luasnip.choice_active() then
-				luasnip.change_choice(-1)
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-		["<C-n>"] = cmp.mapping(function(fallback)
-			if luasnip.choice_active() then
-				luasnip.change_choice(1)
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-		["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
-		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-		["<C-X>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+		["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { "i", "c" }),
+		["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { "i", "c" }),
+		["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+		["<C-x>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 		["<ESC>"] = cmp.mapping.abort(),
-		["<C-e>"] = cmp.mapping({
-			i = cmp.mapping.abort(),
-			c = cmp.mapping.close(),
-		}),
 		["<CR>"] = cmp.mapping.confirm({
-			-- behavior = cmp.ConfirmBehavior.Replace,
-			select = false,
+			-- 按下回车，如果没有选择任何选项，select=true会自动选择第一个选项
+			select = true,
 		}),
-		--[[ ["<Tab>"] = cmp.mapping(function(fallback) ]]
-		--[[ 	if cmp.visible() then ]]
-		--[[ 		cmp.select_next_item() ]]
-		--[[ 	elseif luasnip.expandable() then ]]
-		--[[ 		luasnip.expand() ]]
-		--[[ 	elseif luasnip.expand_or_jumpable() then ]]
-		--[[ 		luasnip.expand_or_jump() ]]
-		--[[ 	elseif check_backspace() then ]]
-		--[[ 		fallback() ]]
-		--[[ 	else ]]
-		--[[ 		fallback() ]]
-		--[[ 	end ]]
-		--[[ end, { "i", "s" }), ]]
-		--[[ ["<S-Tab>"] = cmp.mapping(function(fallback) ]]
-		--[[ 	if cmp.visible() then ]]
-		--[[ 		cmp.select_prev_item() ]]
-		--[[ 	elseif luasnip.jumpable(-1) then ]]
-		--[[ 		luasnip.jump(-1) ]]
-		--[[ 	else ]]
-		--[[ 		fallback() ]]
-		--[[ 	end ]]
-		--[[ end, { "i", "s" }), ]]
 	}),
 	formatting = {
-		--[[ fields = { "kind", "abbr", "menu" }, ]]
 		format = function(entry, vim_item)
-			--[[ print(entry.source.name) ]]
-			--[[ print(vim.inspect(entry)) ]]
-			-- Kind icons
-			--[[ vim_item.kind = string.format("%s", kind_icons[vim_item.kind]) ]]
+			-- debug 用，为了查看提示来自哪个源
 			vim_item.kind = vim_item.kind .. "(" .. entry.source.name .. ")"
 
-			--[[ if entry.source.name == "cmp_tabnine" then ]]
-			--[[   -- if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then ]]
-			--[[   -- menu = entry.completion_item.data.detail .. " " .. menu ]]
-			--[[   -- end ]]
-			--[[   vim_item.kind = icons.misc.Robot ]]
-			--[[ end ]]
-			--[[ if entry.source.name == "copilot" then ]]
-			--[[   vim_item.kind = icons.git.Octoface ]]
-			--[[   vim_item.kind_hl_group = "CmpItemKindCopilot" ]]
-			--[[ end ]]
-			--[[ -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind ]]
-			--[[ -- NOTE: order matters ]]
-			--[[ vim_item.menu = ({ ]]
-			--[[   -- nvim_lsp = "[LSP]", ]]
-			--[[   -- nvim_lua = "[Nvim]", ]]
-			--[[   -- luasnip = "[Snippet]", ]]
-			--[[   -- buffer = "[Buffer]", ]]
-			--[[   -- path = "[Path]", ]]
-			--[[   -- emoji = "[Emoji]", ]]
-			--[[]]
-			--[[   nvim_lsp = "nvim_lsp", ]]
-			--[[   nvim_lua = "nvim_lua", ]]
-			--[[   luasnip = "luasnip", ]]
-			--[[   buffer = "buff", ]]
-			--[[   path = "path", ]]
-			--[[   emoji = "emoji", ]]
-			--[[   dap = "dap", ]]
-			--[[ })[entry.source.name] ]]
 			return vim_item
 		end,
 	},
 	sources = {
-		{ name = "cmp_tabnine", priority = 8 },
-		{ name = "nvim_lsp", priority = 8 },
-		{ name = "buffer", priority = 8 },
-		--[[ { name = "cmdline" }, ]]
-		{ name = "nvim_lsp_signature_help", priority = 7 },
-		{ name = "luasnip", priority = 7 },
-		{ name = "spell", keyword_length = 3, priority = 5, keyword_pattern = [[\w\+]] },
-		{ name = "dictionary", keyword_length = 3, priority = 5, keyword_pattern = [[\w\+]] }, -- from uga-rosa/cmp-dictionary plug
-		{ name = "path" },
-		--[[ { name = "copilot" }, ]]
-	},
-	confirm_opts = {
-		behavior = cmp.ConfirmBehavior.Replace,
-		select = false,
-	},
-	window = {
-		-- documentation = "native",
-		documentation = {
-			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-			winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
-		},
-		completion = {
-			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-			winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
-		},
+		-- 提供 copilot 补全( 基于 zbirenbaum/copilot-cmp)
+		{ name = "copilot", group_index = 2 },
+		-- 提供 nvim_lsp 补全( 基于 hrsh7th/cmp-nvim-lsp)
+		{ name = "nvim_lsp", group_index = 2 },
+		-- 基于hrsh7th/cmp-buffer
+		{ name = "buffer", group_index = 2 },
+		-- 提供 snippets 补全( 基于 saadparwaiz1/cmp_luasnip)
+		{ name = "luasnip", group_index = 2 },
+		-- 基于 hrsh7th/cmp-nvim-lsp-signature-help
+		-- 提供在调用函数时的参数提示，按照函数的参数顺序显示
+		{ name = "nvim_lsp_signature_help" },
 	},
 	experimental = {
-		ghost_text = false,
-		-- native_menu = false,
+		ghost_text = true,
 	},
+})
+
+-- 针对 lua ,注入 nvim_lua , 方便提供vim 接口的代码提示
+cmp.setup.filetype("lua", {
+	sources = {
+		-- 提供 copilot 补全( 基于 zbirenbaum/copilot-cmp)
+		{ name = "copilot", group_index = 2 },
+		-- 提供 nvim_lsp 补全( 基于 hrsh7th/cmp-nvim-lsp)
+		{ name = "nvim_lsp", group_index = 2 },
+		-- 基于hrsh7th/cmp-buffer
+		{ name = "buffer", group_index = 2 },
+		-- 提供 snippets 补全( 基于 saadparwaiz1/cmp_luasnip)
+		{ name = "luasnip", group_index = 2 },
+		{ name = "nvim_lua" },
+	},
+})
+-- Set configuration for specific filetype.
+cmp.setup.filetype("gitcommit", {
+	sources = cmp.config.sources({
+		{ name = "git" }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+	}, {
+		{ name = "buffer" },
+	}),
+})
+
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ "/", "?" }, {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = "buffer" },
+	},
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(":", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = "path" },
+	}, {
+		{ name = "cmdline" },
+	}),
+	matching = { disallow_symbol_nonprefix_matching = false },
 })

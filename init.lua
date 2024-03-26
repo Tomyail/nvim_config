@@ -22,7 +22,6 @@ require("user.snippet")
 require("user.leap")
 require("user.yanky")
 require("user.chat-gpt")
-require("user.copilot")
 require("user.mini")
 
 local nvim_version = vim.fn.eval("split(v:version, '\\.')[0]")
