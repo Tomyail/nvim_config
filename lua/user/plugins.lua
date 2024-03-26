@@ -22,7 +22,7 @@ local basic = {
 	"kyazdani42/nvim-tree.lua",
 	{ "williamboman/mason.nvim" },
 	{ "williamboman/mason-lspconfig.nvim" },
-	"jose-elias-alvarez/null-ls.nvim",
+	"nvimtools/none-ls.nvim",
 
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",

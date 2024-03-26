@@ -12,18 +12,11 @@ null_ls.setup({
 	debug = false,
 	sources = {
 		null_ls.builtins.formatting.rustywind,
-		null_ls.builtins.diagnostics.eslint_d.with({
-			--[[ todo sames to work ,no all eslint disabled ]]
-			condition = function(utils)
-				--[[ print("hello", utils.root_has_file({ ".eslintrc.js" })) ]]
-				return utils.root_has_file({ ".eslintrc.js" })
-			end,
-			--[[ todo sames to work ,no all eslint disabled ]]
-			--[[ runtime_condition = function(params) ]]
-			--[[ 	print("hello2") ]]
-			--[[ 	return params.root:match("my-monorepo-subdir") ~= nil ]]
-			--[[ end, ]]
-		}),
+		--[[ null_ls.builtins.diagnostics.eslint_d.with({ ]]
+		--[[ 	condition = function(utils) ]]
+		--[[ 		return utils.root_has_file({ ".eslintrc.js" }) ]]
+		--[[ 	end, ]]
+		--[[ }), ]]
 		formatting.prettierd.with({
 			prefer_local = true,
 		}),
