@@ -19,6 +19,8 @@ local supported_server = {
 		"tsserver",
 		"elixirls",
 		"tailwindcss",
+		"eslint",
+		"lua_ls",
 	},
 	enhanced = {
 		"cssls",
@@ -42,16 +44,10 @@ local supported_server = {
 	},
 	deluxe = {},
 }
-mason.setup({
-	ui = {
-		icons = {
-			package_installed = "✓",
-		},
-	},
-})
+mason.setup({})
 
 mason_lsp.setup({
-	ensure_installed = supported_server[utils.get_running_mode()],
+	ensure_installed = supported_server["basic"],
 })
 
 local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
@@ -73,7 +69,7 @@ mason_lsp.setup_handlers({
 		if cfg then
 			opts = vim.tbl_deep_extend("force", cfg, opts)
 		end
-		--[[ print('init server' .. server) ]]
+		--[[ print("init server " .. server) ]]
 		lspconfig[server].setup(opts)
 	end,
 })

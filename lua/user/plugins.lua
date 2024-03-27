@@ -66,6 +66,7 @@ local basic = {
 			{ "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
 			{ "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
 		},
+		lazy = false,
 		config = function()
 			local prompts = require("CopilotChat.prompts")
 			local select = require("CopilotChat.select")
@@ -126,11 +127,20 @@ local basic = {
 				end,
 			},
 
-			"JoosepAlviste/nvim-ts-context-commentstring",
 			"windwp/nvim-autopairs",
 			"windwp/nvim-ts-autotag",
 			"RRethy/nvim-treesitter-endwise",
-			"numToStr/Comment.nvim", -- Easily comment stuff
+			{
+				"numToStr/Comment.nvim", -- Easily comment stuff
+				dependencies = {
+					"JoosepAlviste/nvim-ts-context-commentstring",
+				},
+				config = function()
+					require("Comment").setup({
+						pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+					})
+				end,
+			},
 		},
 		event = "VeryLazy",
 	},
@@ -156,7 +166,10 @@ local basic = {
 	{
 
 		"lewis6991/gitsigns.nvim",
-		event = "VeryLazy",
+		opts = {
+			current_line_blame = true,
+		},
+		lazy = false,
 	},
 
 	{
@@ -169,6 +182,7 @@ local basic = {
 		opts = {},
 		event = "VeryLazy",
 	},
+
 	"akinsho/bufferline.nvim",
 
 	"rafamadriz/friendly-snippets",
@@ -184,7 +198,16 @@ local basic = {
 
 	"hoob3rt/lualine.nvim",
 
-	"rcarriga/nvim-notify",
+	{
+		"rcarriga/nvim-notify",
+		opts = {},
+		config = function()
+			vim.notify = require("notify")
+		end,
+		init = function()
+			vim.opt.termguicolors = true
+		end,
+	},
 	{
 		"christoomey/vim-tmux-navigator",
 		lazy = false,

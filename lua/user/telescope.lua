@@ -1,11 +1,3 @@
--- nnoremap <silent> <leader>ls <cmd>Telescope file_browser<cr>
--- nnoremap <silent> <leader>fo <cmd>lua require('telescope.builtin').oldfiles({only_cwd=true})<cr>
--- nnoremap <silent> <leader>ff <cmd>Telescope find_files<cr>
--- nnoremap <silent> <leader>fg <cmd>Telescope live_grep<cr>
--- nnoremap <silent> <leader>fb <cmd>Telescope buffers<cr>
--- nnoremap <silent> <leader>fc <cmd>Telescope commands<cr>
--- nnoremap <silent> <leader>fr <Cmd>Telescope frecency frecency <CR>
-
 local telescope = require("telescope")
 function telescope_buffer_dir()
 	return vim.fn.expand("%:p:h")
