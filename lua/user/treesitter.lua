@@ -3,14 +3,14 @@ if not status_ok then
 	return
 end
 
-require('nvim-treesitter.configs').setup {}
+require("nvim-treesitter.configs").setup({})
 -- nvim-ts-context-commentstring is set up automatically
 local utils = require("user.functions")
 
 local supported_lang = {
 	-- list installled for n in *; do printf '%s,\n' "${n%.*}"; done
 	basic = {
-    "astro",
+		"astro",
 		"bash",
 		"c",
 		"cmake",

@@ -38,4 +38,3 @@ navic.setup({
 	depth_limit_indicator = "..",
 	safe_output = true,
 })
-

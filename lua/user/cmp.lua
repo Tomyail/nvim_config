@@ -49,7 +49,7 @@ cmp.setup({
 		["<C-x>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 		["<ESC>"] = cmp.mapping.abort(),
 		["<CR>"] = cmp.mapping({
-      -- 在插入模式, 如果当前没有选择, 按下回车后是回车,如果当前有选择, 按下回车后是确认选择
+			-- 在插入模式, 如果当前没有选择, 按下回车后是回车,如果当前有选择, 按下回车后是确认选择
 			i = function(fallback)
 				if cmp.visible() and cmp.get_active_entry() then
 					cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
@@ -57,9 +57,9 @@ cmp.setup({
 					fallback()
 				end
 			end,
-      -- 在选择模式, 按下回车后是确认选择
+			-- 在选择模式, 按下回车后是确认选择
 			s = cmp.mapping.confirm({ select = true }),
-      -- 在命令模式, 按下回车后是确认选择, 并且会替换
+			-- 在命令模式, 按下回车后是确认选择, 并且会替换
 			c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
 		}),
 	}),

@@ -295,14 +295,14 @@ local m_mappings = {
 		function()
 			harpoon.ui:toggle_quick_menu(harpoon:list())
 		end,
-    "toggle quick menu",
+		"toggle quick menu",
 	},
-  c = {
-    function()
-      harpoon:list():clear()
-    end,
-    "clear all",
-  },
+	c = {
+		function()
+			harpoon:list():clear()
+		end,
+		"clear all",
+	},
 }
 
 -- local ctrl_opts = {

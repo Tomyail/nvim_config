@@ -1,6 +1,6 @@
 local status_ok, ls = pcall(require, "luasnip")
 if not status_ok then
-  return
+	return
 end
 -- some shorthands...
 local s = ls.snippet
@@ -61,11 +61,7 @@ ls.config.set_config({
 	end,
 })
 
-
-
 -- The directories will have to be structured like eg. <https://github.com/rafamadriz/friendly-snippets> (include
 -- a similar `package.json`)
 require("luasnip.loaders.from_vscode").lazy_load() -- Load snippets from my-snippets folder
-require'luasnip'.filetype_extend("javascript", {"jsdoc"})
-
-
+require("luasnip").filetype_extend("javascript", { "jsdoc" })

@@ -17,7 +17,7 @@ if not status_ok then
 end
 
 colorizer.setup({
-  render = 'foreground',
+	render = "foreground",
 	enable_named_colors = true,
 	enable_tailwind = true,
 })

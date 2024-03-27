@@ -205,7 +205,7 @@ function M.start_leap_backword_to()
 	if not status_ok then
 		return
 	end
-  leap.leap({ backward = true, opts = { labels = {} } })
+	leap.leap({ backward = true, opts = { labels = {} } })
 end
 
 function M.delete_buff()
@@ -303,33 +303,31 @@ end
 
 -- switch to english input method
 function M.switch_to_english()
-    local os_name = trim(vim.fn.system("uname")):lower()
-    if os_name:match("darwin") then -- macOS
-        if vim.fn.executable("im-select") == 1 then
-            os.execute("im-select com.apple.keylayout.ABC")
-        end
-    elseif os_name:match("linux") then -- Linux (Ubuntu)
-        if vim.fn.executable("ibus") == 1 then
-            os.execute("ibus engine xkb:us::eng")
-        end
-    end
+	local os_name = trim(vim.fn.system("uname")):lower()
+	if os_name:match("darwin") then -- macOS
+		if vim.fn.executable("im-select") == 1 then
+			os.execute("im-select com.apple.keylayout.ABC")
+		end
+	elseif os_name:match("linux") then -- Linux (Ubuntu)
+		if vim.fn.executable("ibus") == 1 then
+			os.execute("ibus engine xkb:us::eng")
+		end
+	end
 end
 
 -- switch to chinese input method
 function M.switch_to_chinese()
-    local os_name = trim(vim.fn.system("uname")):lower()
-    if os_name:match("darwin") then -- macOS
-        if vim.fn.executable("im-select") == 1 then
-            -- os.execute("im-select com.apple.inputmethod.SCIM.ITABC")
-            os.execute("im-select im.rime.inputmethod.Squirrel.Hans")
-        end
-    elseif os_name:match("linux") then -- Linux (Ubuntu)
-        if vim.fn.executable("ibus") == 1 then
-            os.execute("ibus engine rime")
-        end
-    end
+	local os_name = trim(vim.fn.system("uname")):lower()
+	if os_name:match("darwin") then -- macOS
+		if vim.fn.executable("im-select") == 1 then
+			-- os.execute("im-select com.apple.inputmethod.SCIM.ITABC")
+			os.execute("im-select im.rime.inputmethod.Squirrel.Hans")
+		end
+	elseif os_name:match("linux") then -- Linux (Ubuntu)
+		if vim.fn.executable("ibus") == 1 then
+			os.execute("ibus engine rime")
+		end
+	end
 end
-
-
 
 return M

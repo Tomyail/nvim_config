@@ -22,11 +22,10 @@ local basic = {
 	"kyazdani42/nvim-tree.lua",
 	{ "williamboman/mason.nvim" },
 	{ "williamboman/mason-lspconfig.nvim" },
-	--[[ "nvimtools/none-ls.nvim", ]]
-  {
-  'stevearc/conform.nvim',
-  opts = require('user.lsp.conform'),
-  },
+	{
+		"stevearc/conform.nvim",
+		opts = require("user.lsp.conform"),
+	},
 
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
@@ -54,7 +53,6 @@ local basic = {
 				},
 			})
 		end,
-		-- See Commands section for default commands if you want to lazy load on them
 	},
 	{
 		"zbirenbaum/copilot.lua",
@@ -115,7 +113,10 @@ local basic = {
 
 	"ggandor/leap.nvim",
 
-	"gbprod/yanky.nvim",
+	{
+		"gbprod/yanky.nvim",
+		opts = {},
+	},
 	"akinsho/bufferline.nvim",
 
 	"rafamadriz/friendly-snippets",
