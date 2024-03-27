@@ -20,8 +20,8 @@ null_ls.setup({
 		formatting.prettierd.with({
 			prefer_local = true,
 		}),
-		formatting.black.with({ extra_args = { "--fast" } }),
-		formatting.stylua,
-		null_ls.builtins.formatting.shfmt,
+		--[[ formatting.black.with({ extra_args = { "--fast" } }), ]]
+		--[[ formatting.stylua, ]]
+		--[[ null_ls.builtins.formatting.shfmt, ]]
 	},
 })

@@ -33,4 +33,3 @@ vim.g.loaded_matchparen = true
 --[[ if nvim_major_version > 0.8 then ]]
 --[[     require("user.winbar") ]]
 --[[ end ]]
-

@@ -91,7 +91,6 @@ if status_ok then
 	starter.setup()
 end
 
-
 local status_ok, sessions = pcall(require, "mini.sessions")
 if status_ok then
 	sessions.setup()

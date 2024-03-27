@@ -94,7 +94,7 @@ local mappings = {
 	},
 	["/"] = { '<cmd>lua require("Comment.api").toggle.linewise.current()<CR>', "Comment" },
 	["w"] = { "<cmd>w!<CR>", "Save" },
-	["q"] = { '<cmd>lua require("user.functions").delete_buff()<cr>', "Quit" },
+	["q"] = { '<cmd>lua require("user.functions").delete_buff()<cr>', "Quit Buff" },
 	["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
 	["f"] = {
 		"<cmd>lua require('user.functions').find_files()<cr>",
@@ -179,7 +179,7 @@ local mappings = {
 			"<cmd>Telescope diagnostics<cr>",
 			"Workspace Diagnostics",
 		},
-		f = { "<cmd>lua vim.lsp.buf.format({async=true})<cr>", "Format" },
+		f = { "<cmd>lua require('conform').format()<cr>", "Format" },
 		F = { "<cmd>LspToggleAutoFormat<cr>", "Toggle Autoformat" },
 		i = { "<cmd>LspInfo<cr>", "Info" },
 		I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },

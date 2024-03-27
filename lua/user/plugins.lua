@@ -22,7 +22,11 @@ local basic = {
 	"kyazdani42/nvim-tree.lua",
 	{ "williamboman/mason.nvim" },
 	{ "williamboman/mason-lspconfig.nvim" },
-	"nvimtools/none-ls.nvim",
+	--[[ "nvimtools/none-ls.nvim", ]]
+  {
+  'stevearc/conform.nvim',
+  opts = require('user.lsp.conform'),
+  },
 
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
