@@ -68,7 +68,6 @@ local function lsp_keymaps(bufnr)
 	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format({ async= true})' ]])
 end
 
-local gps = require("user.gps")
 M.on_attach = function(client, bufnr)
 	local status_cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 	if not status_cmp_ok then

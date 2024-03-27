@@ -12,19 +12,51 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local basic = {
-	"neovim/nvim-lspconfig",
+	{
+		"folke/tokyonight.nvim",
+		lazy = false, -- make sure we load this during startup if it is your main colorscheme
+		priority = 1000, -- make sure to load this before all the other start plugins
+		config = function()
+			-- load the colorscheme here
+			vim.cmd([[colorscheme tokyonight]])
+		end,
+		dependencies = {
+			{
+				"brenoprata10/nvim-highlight-colors",
+				opts = {
+					render = "foreground",
+					enable_named_colors = true,
+					enable_tailwind = true,
+				},
+			},
+		},
+	},
+
 	"uga-rosa/utf8.nvim",
+	{
+		"williamboman/mason.nvim",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			{ "williamboman/mason-lspconfig.nvim" },
+			{
+				"stevearc/conform.nvim",
+				opts = require("user.lsp.conform"),
+			},
+		},
+	},
+
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.3",
 		dependencies = { "nvim-lua/plenary.nvim" },
+		lazy = true,
+		event = "VeryLazy",
 	},
-	"kyazdani42/nvim-tree.lua",
-	{ "williamboman/mason.nvim" },
-	{ "williamboman/mason-lspconfig.nvim" },
+
 	{
-		"stevearc/conform.nvim",
-		opts = require("user.lsp.conform"),
+
+		"kyazdani42/nvim-tree.lua",
+		event = "VeryLazy",
 	},
 
 	{
@@ -93,35 +125,55 @@ local basic = {
 					require("copilot_cmp").setup()
 				end,
 			},
+
+			"JoosepAlviste/nvim-ts-context-commentstring",
+			"windwp/nvim-autopairs",
+			"windwp/nvim-ts-autotag",
+			"RRethy/nvim-treesitter-endwise",
+			"numToStr/Comment.nvim", -- Easily comment stuff
 		},
+		event = "VeryLazy",
 	},
 
-	"folke/which-key.nvim",
+	{
+		event = "VeryLazy",
+		"folke/which-key.nvim",
+		init = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+		end,
+	},
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
+		event = "VeryLazy",
 	},
-	"JoosepAlviste/nvim-ts-context-commentstring",
-	"windwp/nvim-autopairs",
-	"windwp/nvim-ts-autotag",
-	"RRethy/nvim-treesitter-endwise",
 
-	"numToStr/Comment.nvim", -- Easily comment stuff
+	{
+		"kdheepak/lazygit.nvim",
+		event = "VeryLazy",
+	},
+	{
 
-	"kdheepak/lazygit.nvim",
-	"lewis6991/gitsigns.nvim",
+		"lewis6991/gitsigns.nvim",
+		event = "VeryLazy",
+	},
 
-	"ggandor/leap.nvim",
+	{
+		"ggandor/leap.nvim",
+		event = "VeryLazy",
+	},
 
 	{
 		"gbprod/yanky.nvim",
 		opts = {},
+		event = "VeryLazy",
 	},
 	"akinsho/bufferline.nvim",
 
 	"rafamadriz/friendly-snippets",
 
-	"MunifTanjim/nui.nvim",
+	--[[ "MunifTanjim/nui.nvim", ]]
 
 	"b0o/SchemaStore.nvim",
 	"echasnovski/mini.nvim",
@@ -130,7 +182,6 @@ local basic = {
 	"theHamsta/nvim-dap-virtual-text",
 	"rcarriga/nvim-dap-ui",
 
-	"brenoprata10/nvim-highlight-colors",
 	"hoob3rt/lualine.nvim",
 
 	"rcarriga/nvim-notify",
@@ -143,15 +194,20 @@ local basic = {
 		name = "barbecue",
 		version = "*",
 		dependencies = {
-			"SmiteshP/nvim-navic",
+			{
+				"SmiteshP/nvim-navic",
+				opts = {
+					highlight = true,
+					depth_limit = 3,
+				},
+			},
 			"nvim-tree/nvim-web-devicons", -- optional dependency
 		},
-		opts = {},
+		event = "VeryLazy",
 	},
 	{
 		"epwalsh/obsidian.nvim",
 		version = "*", -- recommended, use latest release instead of latest commit
-		lazy = true,
 		ft = "markdown",
 		-- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
 		-- event = {
@@ -176,8 +232,11 @@ local basic = {
 
 			-- see below for full list of options 👇
 		},
+
+		event = "VeryLazy",
 	},
 	{
+		event = "VeryLazy",
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -189,6 +248,9 @@ local plugins = {}
 plugins = basic
 
 local opts = {
+	defaults = {
+		lazy = true, -- should plugins be lazy-loaded?
+	},
 	-- your configuration comes here
 	-- or leave it empty to use the default settings
 	-- refer to the configuration section below
