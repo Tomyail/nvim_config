@@ -1,6 +1,7 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
+
 		"git",
 		"clone",
 		"--filter=blob:none",
@@ -12,6 +13,12 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local basic = {
+	{
+		lazy = false,
+		"tomyail/smart-im",
+		opts = {},
+		dir = "./smart-im",
+	},
 	{
 		"folke/tokyonight.nvim",
 		lazy = false, -- make sure we load this during startup if it is your main colorscheme

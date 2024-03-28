@@ -32,13 +32,6 @@ vim.cmd([[
   augroup end
 ]])
 
-vim.cmd([[
-  autocmd InsertLeave * lua require('user.functions').switch_to_english()
-]])
-vim.cmd([[
-  autocmd InsertEnter * lua require('user.functions').check_and_switch_input_method()
-]])
-
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
 	callback = function()
 		vim.cmd("hi link illuminatedWord LspReferenceText")
