@@ -89,20 +89,6 @@ cmp.setup({
 	},
 })
 
--- 针对 lua ,注入 nvim_lua , 方便提供vim 接口的代码提示
-cmp.setup.filetype("lua", {
-	sources = {
-		-- 提供 copilot 补全( 基于 zbirenbaum/copilot-cmp)
-		{ name = "copilot", group_index = 2 },
-		-- 提供 nvim_lsp 补全( 基于 hrsh7th/cmp-nvim-lsp)
-		{ name = "nvim_lsp", group_index = 2 },
-		-- 基于hrsh7th/cmp-buffer
-		{ name = "buffer", group_index = 2 },
-		-- 提供 snippets 补全( 基于 saadparwaiz1/cmp_luasnip)
-		{ name = "luasnip", group_index = 2 },
-		{ name = "nvim_lua" },
-	},
-})
 -- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {
 	sources = cmp.config.sources({

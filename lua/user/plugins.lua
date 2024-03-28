@@ -85,6 +85,16 @@ local basic = {
 					},
 				},
 			})
+			vim.api.nvim_create_autocmd("BufEnter", {
+				pattern = "copilot-*",
+				callback = function()
+					-- Get current filetype and set it to markdown if the current filetype is copilot-chat
+					local ft = vim.bo.filetype
+					if ft == "copilot-chat" then
+						vim.bo.filetype = "markdown"
+					end
+				end,
+			})
 		end,
 	},
 	{
@@ -105,6 +115,8 @@ local basic = {
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
+			-- neodev.nvim 的作用是给nvim 的api增加代码提示
+			{ "folke/neodev.nvim", opts = {} },
 			{
 				"L3MON4D3/LuaSnip",
 				-- follow latest release.
@@ -114,7 +126,6 @@ local basic = {
 			},
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
