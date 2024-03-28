@@ -22,6 +22,13 @@ local mappings = {
 		name = "ChatGPT",
 		c = { "<cmd>CopilotChatToggle<CR>", "ChatGPT" },
 		g = { "<cmd>CopilotChatCommitStaged<CR>", "CopilotChatCommitStaged" },
+		p = {
+			function()
+				local actions = require("CopilotChat.actions")
+				require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+			end,
+			"show help",
+		},
 	},
 	b = {
 		name = "Buffers",
@@ -192,7 +199,16 @@ local vopts = {
 local vmappings = {
 	["/"] = { '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', "Comment" },
 	s = { "<esc><cmd>'<,'>SnipRun<cr>", "Run range" },
-	e = { "<esc><cmd>CopilotChatExplain<cr>", "CopilotChatExplain" },
+	c = {
+		name = "CopilotChat",
+		c = { "<esc><cmd>CopilotChat<cr>", "Chat" },
+		e = { "<esc><cmd>CopilotChatExplain<cr>", "Explain" },
+		t = { "<esc><cmd>CopilotChatTests<cr>", "Tests" },
+		f = { "<esc><cmd>CopilotChatFix<cr>", "Fix" },
+		F = { "<esc><cmd>CopilotChatFixDiagnostic<cr>", "FixDiagnostic" },
+		o = { "<esc><cmd>CopilotChatOptimize<cr>", "Optimize" },
+		d = { "<esc><cmd>CopilotChatDocs<cr>", "Docs" },
+	},
 	-- search selected text via Telescope live_grep
 	-- https://www.reddit.com/r/neovim/comments/p8wtmn/comment/h9ty0s2/?utm_source=share&utm_medium=web2x&context=3
 	["<leader>"] = { '"zy:Telescope live_grep default_text=<C-r>z<CR>', "Global Search" },
