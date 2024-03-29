@@ -1,39 +1,5 @@
 local M = {}
-
 local utf8 = require("utf8")
-
--- 辅助函数：去除字符串首尾的空白字符
-local function trim(s)
-	return s:match("^%s*(.-)%s*$")
-end
--- switch to english input method
-function M.switch_to_english()
-	local os_name = trim(vim.fn.system("uname")):lower()
-	if os_name:match("darwin") then -- macOS
-		if vim.fn.executable("im-select") == 1 then
-			os.execute("im-select com.apple.keylayout.ABC")
-		end
-	elseif os_name:match("linux") then -- Linux (Ubuntu)
-		if vim.fn.executable("ibus") == 1 then
-			os.execute("ibus engine xkb:us::eng")
-		end
-	end
-end
-
--- switch to chinese input method
-function M.switch_to_chinese()
-	local os_name = trim(vim.fn.system("uname")):lower()
-	if os_name:match("darwin") then -- macOS
-		if vim.fn.executable("im-select") == 1 then
-			-- os.execute("im-select com.apple.inputmethod.SCIM.ITABC")
-			os.execute("im-select im.rime.inputmethod.Squirrel.Hans")
-		end
-	elseif os_name:match("linux") then -- Linux (Ubuntu)
-		if vim.fn.executable("ibus") == 1 then
-			os.execute("ibus engine rime")
-		end
-	end
-end
 
 function M.get_matched_lang(lang_config, codepoint)
 	local is_code_point_in_ranges = function(code_point, ranges)
@@ -47,6 +13,27 @@ function M.get_matched_lang(lang_config, codepoint)
 	for _, lang in pairs(lang_config) do
 		if is_code_point_in_ranges(codepoint, lang.ranges) then
 			return lang
+		end
+	end
+end
+
+function M.find_in_array(table, fn)
+	for _, v in ipairs(table) do
+		if fn(v) then
+			return v
+		end
+	end
+end
+function M.change_input_by_os(methods)
+	local os_name = M.os_name()
+	local target = M.find_in_array(methods, function(method)
+		return method.os == os_name
+	end)
+	if target then
+		-- vim.notify("target" .. vim.inspect(target))
+
+		if vim.fn.executable(target.cmd) == 1 then
+			os.execute(target.cmd .. " " .. target.input)
 		end
 	end
 end
@@ -75,23 +62,6 @@ function M.get_range(str, col)
 	for _, range in ipairs(ranges) do
 		if normal_col >= range.start_idx and normal_col <= range.end_idx then
 			return range
-			-- vim.notify(
-			-- 	"range: "
-			-- 		.. vim.inspect(range)
-			-- 		.. " normal_col:"
-			-- 		.. normal_col
-			-- 		.. " codepoint:"
-			-- 		.. "0x"
-			-- 		.. string.format("%x", utf8.codepoint(range.char))
-			-- 		.. "is_chinese:"
-			-- 		.. tostring(is_code_point_in_ranges(utf8.codepoint(range.char), chinese_ranges))
-			-- )
-
-			-- if is_code_point_in_ranges(utf8.codepoint(range.char), chinese_ranges) then
-			-- 	M.switch_to_chinese()
-			-- else
-			-- 	M.switch_to_english()
-			-- end
 		end
 	end
 end
@@ -129,14 +99,7 @@ function M.setup(config)
 					{
 						os = "darwin",
 						cmd = "im-select",
-						onMatch = "im.rime.inputmethod.Squirrel.Hans",
-						onLeave = "com.apple.keylayout.ABC",
-					},
-					{
-						os = "linux",
-						cmd = "ibus",
-						onMatch = "engine rime",
-						onLeave = "engine xkb:us::eng",
+						input = "im.rime.inputmethod.Squirrel.Hans",
 					},
 				},
 			},
@@ -145,7 +108,7 @@ function M.setup(config)
 
 	vim.api.nvim_create_autocmd("InsertLeave", {
 		callback = function()
-			M.switch_to_english()
+			M.change_input_by_os(defaultConfig.default.methods)
 		end,
 	})
 
@@ -157,7 +120,12 @@ function M.setup(config)
 			if range then
 				local codepoint = utf8.codepoint(range.char)
 				local lang = M.get_matched_lang(defaultConfig.lang, codepoint)
-				vim.notify("lang" .. vim.inspect(lang))
+
+				if lang then
+					M.change_input_by_os(lang.methods)
+				else
+					M.change_input_by_os(defaultConfig.default.methods)
+				end
 			end
 		end,
 	})
