@@ -17,7 +17,7 @@ local basic = {
 		lazy = false,
 		"tomyail/smart-im",
 		opts = {},
-		dir = "./smart-im",
+		dir = vim.fn.stdpath("config") .. "/smart-im",
 	},
 	{
 		"folke/tokyonight.nvim",
