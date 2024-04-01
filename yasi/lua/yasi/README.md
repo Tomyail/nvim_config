@@ -1,6 +1,6 @@
-# smart-im
+# yasi.nvim
 
-change input method depend in current cursor position's content
+Yet another smart im. change input method depend in current cursor position's content
 
 ## Prerequisite
 
@@ -13,7 +13,7 @@ you need to install some tools to change input method. For example I use [im-sel
 ```lua
 return {
 	{
-		"tomyail/smart-im",
+		"tomyail/yasi.nvim",
 		opts = {},
 	},
 
@@ -73,7 +73,7 @@ For example, I prefer to use [Rime](https://rime.im/) to input Chinese. Here is 
 ```lua
 {
 
-    "tomyail/smart-im",
+    "tomyail/yasi.nvim"
     opts = {
       lang = {
         cjk = {
@@ -93,6 +93,6 @@ For example, I prefer to use [Rime](https://rime.im/) to input Chinese. Here is 
 
 ## How it works
 
-When you type in insert mode, this plugins will detect current cursor position's content, get the codepoint of the content, use the codepoint to find the config that match its range. If find the config, using the config's input method to change input method, otherwise using the default input method.
+When you type in insert mode, this plugins will detect current cursor position's content, get the codepoint of the content, use the codepoint to find the config that tatch its range. If find the config, using the config's input method to change input method, otherwise using the default input method.
 
 When you exit to normal mode, this plugins will change input method to default input method.

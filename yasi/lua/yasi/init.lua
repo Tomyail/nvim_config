@@ -1,7 +1,7 @@
 local M = {}
 local utf8 = require("utf8")
 
-local logger = require("smart-im.logger")
+local logger = require("yasi.logger")
 logger.set_using_notify(true)
 
 function M.get_matched_lang(lang_config, codepoint)
@@ -87,7 +87,7 @@ function M.os_name()
 end
 
 function M.setup(config)
-    local defaultConfig = require("smart-im.config")
+    local defaultConfig = require("yasi.config")
     local merged_config = vim.tbl_deep_extend("force", defaultConfig, config)
     -- TODO validate config
 

@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 local basic = {
   {
     lazy = false,
-    "tomyail/smart-im",
+    "tomyail/yasi.nvim",
     opts = {
       lang = {
         cjk = {
@@ -29,7 +29,7 @@ local basic = {
         },
       },
     },
-    dir = vim.fn.stdpath("config") .. "/smart-im",
+    dir = vim.fn.stdpath("config") .. "/yasi",
   },
   {
     "folke/tokyonight.nvim",
