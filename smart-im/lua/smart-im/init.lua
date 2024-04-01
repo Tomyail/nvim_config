@@ -1,6 +1,9 @@
 local M = {}
 local utf8 = require("utf8")
 
+local logger = require("smart-im.logger")
+logger.set_using_notify(true)
+
 function M.get_matched_lang(lang_config, codepoint)
 	local is_code_point_in_ranges = function(code_point, ranges)
 		for _, range in ipairs(ranges) do
@@ -24,22 +27,46 @@ function M.find_in_array(table, fn)
 		end
 	end
 end
-function M.change_input_by_os(methods)
+function M.change_input_by_os(lang)
+	local methods = lang.methods
+	local lang_name = lang.name
 	local os_name = M.os_name()
 	local target = M.find_in_array(methods, function(method)
 		return method.os == os_name
 	end)
 	if target then
-		-- vim.notify("target" .. vim.inspect(target))
-
 		if vim.fn.executable(target.cmd) == 1 then
-			os.execute(target.cmd .. " " .. target.input)
+			local command = string.format("%s %s", target.cmd, target.input)
+			local status, exit_type, _ = os.execute(command)
+			if status == 0 then
+				local msg =
+					string.format("run command %s for lang: %s on os: %s successfully", command, lang_name, os_name)
+				logger.debug(msg)
+			else
+				local msg = string.format("run command %s for lang: %s on os: %s failed", command, lang_name, os_name)
+				logger.warn(msg)
+			end
+		else
+			local msg = string.format(
+				"Command %s not found in lang: %s for os : %s. please ensure command exist",
+				target.cmd,
+				lang_name,
+				os_name
+			)
+			logger.warn(msg)
 		end
+	else
+		local msg = string.format(
+			"No matched input method find in lang: %s for os: %s. please check your config",
+			lang_name,
+			os_name
+		)
+		logger.warn(msg)
 	end
 end
 
 function M.get_range(str, col)
-	-- lua's array index starts from 1!!jk
+	-- lua's array index starts from 1!!
 	local pre_p = 0
 	local pre_c = ""
 	local ranges = {}
@@ -53,12 +80,7 @@ function M.get_range(str, col)
 	table.insert(ranges, { start_idx = pre_p, end_idx = string.len(str), char = pre_c })
 	table.remove(ranges, 1)
 
-	-- https://www.lddgo.net/en/string/cjk-unicodejk
-	local chinese_ranges = {}
-
 	local normal_col = col
-	-- print("table" .. vim.inspect(ranges))
-	-- vim.notify("str" .. str .. "normal_col" .. normal_col)
 	for _, range in ipairs(ranges) do
 		if normal_col >= range.start_idx and normal_col <= range.end_idx then
 			return range
@@ -71,9 +93,11 @@ function M.os_name()
 end
 
 function M.setup(config)
+	-- TODO allow config to override defaultConfig
 	local defaultConfig = {
-		logLevel = "info",
+		logLevel = "OFF",
 		default = {
+			name = "default",
 			methods = {
 				{
 					os = "darwin",
@@ -83,7 +107,9 @@ function M.setup(config)
 			},
 		},
 		lang = {
-			chinese = {
+			cjk = {
+				name = "cjk",
+				-- https://www.lddgo.net/en/string/cjk-unicode
 				ranges = {
 					{ 0x4E00, 0x9FFF },
 					{ 0x3400, 0x4DBF },
@@ -94,6 +120,8 @@ function M.setup(config)
 					{ 0x2CEB0, 0x2EBEF },
 					{ 0x30000, 0x3134A },
 					{ 0x31350, 0x323AF },
+					-- cjk symbols and punctuation
+					{ 0x3000, 0x303F },
 				},
 				methods = {
 					{
@@ -106,25 +134,28 @@ function M.setup(config)
 		},
 	}
 
+	logger.set_log_level(defaultConfig.logLevel)
 	vim.api.nvim_create_autocmd("InsertLeave", {
 		callback = function()
-			M.change_input_by_os(defaultConfig.default.methods)
+			M.change_input_by_os(defaultConfig.default)
 		end,
 	})
 
 	vim.api.nvim_create_autocmd("InsertEnter", {
 		callback = function()
 			local current_line_content = vim.api.nvim_get_current_line()
-			local line_idx, col_idx = unpack(vim.api.nvim_win_get_cursor(0))
+			local _line_idx, col_idx = unpack(vim.api.nvim_win_get_cursor(0))
 			local range = M.get_range(current_line_content, col_idx)
 			if range then
 				local codepoint = utf8.codepoint(range.char)
+				local msg = string.format("col_idx: %s, char: %s,  codepoint: %x", col_idx, range.char, codepoint)
+				logger.debug(msg)
 				local lang = M.get_matched_lang(defaultConfig.lang, codepoint)
 
 				if lang then
-					M.change_input_by_os(lang.methods)
+					M.change_input_by_os(lang)
 				else
-					M.change_input_by_os(defaultConfig.default.methods)
+					M.change_input_by_os(defaultConfig.default)
 				end
 			end
 		end,
