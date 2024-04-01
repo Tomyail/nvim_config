@@ -93,51 +93,14 @@ function M.os_name()
 end
 
 function M.setup(config)
-	-- TODO allow config to override defaultConfig
-	local defaultConfig = {
-		logLevel = "OFF",
-		default = {
-			name = "default",
-			methods = {
-				{
-					os = "darwin",
-					cmd = "im-select",
-					input = "com.apple.keylayout.ABC",
-				},
-			},
-		},
-		lang = {
-			cjk = {
-				name = "cjk",
-				-- https://www.lddgo.net/en/string/cjk-unicode
-				ranges = {
-					{ 0x4E00, 0x9FFF },
-					{ 0x3400, 0x4DBF },
-					{ 0x20000, 0x2A6DF },
-					{ 0x2A700, 0x2B73F },
-					{ 0x2B740, 0x2B81F },
-					{ 0x2B820, 0x2CEAF },
-					{ 0x2CEB0, 0x2EBEF },
-					{ 0x30000, 0x3134A },
-					{ 0x31350, 0x323AF },
-					-- cjk symbols and punctuation
-					{ 0x3000, 0x303F },
-				},
-				methods = {
-					{
-						os = "darwin",
-						cmd = "im-select",
-						input = "im.rime.inputmethod.Squirrel.Hans",
-					},
-				},
-			},
-		},
-	}
+	local defaultConfig = require("smart-im.config")
+	local merged_config = vim.tbl_deep_extend("force", defaultConfig, config)
+	-- TODO validate config
 
-	logger.set_log_level(defaultConfig.logLevel)
+	logger.set_log_level(merged_config.logLevel)
 	vim.api.nvim_create_autocmd("InsertLeave", {
 		callback = function()
-			M.change_input_by_os(defaultConfig.default)
+			M.change_input_by_os(merged_config.default)
 		end,
 	})
 
@@ -150,12 +113,12 @@ function M.setup(config)
 				local codepoint = utf8.codepoint(range.char)
 				local msg = string.format("col_idx: %s, char: %s,  codepoint: %x", col_idx, range.char, codepoint)
 				logger.debug(msg)
-				local lang = M.get_matched_lang(defaultConfig.lang, codepoint)
+				local lang = M.get_matched_lang(merged_config.lang, codepoint)
 
 				if lang then
 					M.change_input_by_os(lang)
 				else
-					M.change_input_by_os(defaultConfig.default)
+					M.change_input_by_os(merged_config.default)
 				end
 			end
 		end,
