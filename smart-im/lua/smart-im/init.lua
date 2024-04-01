@@ -6,12 +6,9 @@ logger.set_using_notify(true)
 
 function M.get_matched_lang(lang_config, codepoint)
     local is_code_point_in_ranges = function(code_point, ranges)
-        for _, range in ipairs(ranges) do
-            if code_point >= range[1] and code_point <= range[2] then
-                return true
-            end
-        end
-        return false
+        return M.find_in_array(ranges, function(range)
+            return code_point >= range[1] and code_point <= range[2]
+        end)
     end
     for _, lang in pairs(lang_config) do
         if is_code_point_in_ranges(codepoint, lang.ranges) then
@@ -80,12 +77,9 @@ function M.get_range(str, col)
     table.insert(ranges, { start_idx = pre_p, end_idx = string.len(str), char = pre_c })
     table.remove(ranges, 1)
 
-    local normal_col = col
-    for _, range in ipairs(ranges) do
-        if normal_col >= range.start_idx and normal_col <= range.end_idx then
-            return range
-        end
-    end
+    return M.find_in_array(ranges, function(range)
+        return col >= range.start_idx and col <= range.end_idx
+    end)
 end
 
 function M.os_name()
