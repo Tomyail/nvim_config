@@ -91,6 +91,19 @@ For example, I prefer to use [Rime](https://rime.im/) to input Chinese. Here is 
 
 ```
 
+### Change to default input when enter Command mode
+
+```lua
+
+require("yasi").setup(opts)
+vim.api.nvim_create_autocmd("CmdlineEnter", {
+    callback = function()
+        local yasi = require("yasi")
+        yasi.change_to_default()
+    end,
+})
+```
+
 ## How it works
 
 When you type in insert mode, this plugins will detect current cursor position's content, get the codepoint of the content, use the codepoint to find the config that tatch its range. If find the config, using the config's input method to change input method, otherwise using the default input method.

@@ -29,6 +29,15 @@ local basic = {
         },
       },
     },
+    config = function(_plugin, opts)
+      require("yasi").setup(opts)
+      vim.api.nvim_create_autocmd("CmdlineEnter", {
+        callback = function()
+          local yasi = require("yasi")
+          yasi.change_to_default()
+        end,
+      })
+    end,
     dir = vim.fn.stdpath("config") .. "/yasi",
   },
   {
