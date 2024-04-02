@@ -57,9 +57,32 @@ local mappings = {
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { '<cmd>lua require("user.functions").delete_buff()<cr>', "Quit Buff" },
   ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
-  ["f"] = {
-    "<cmd>lua require('user.functions').find_files()<cr>",
-    "Find files",
+  f = {
+    name = "Telescope find",
+    f = {
+      function()
+        require("user.functions").find_files()
+      end,
+      "Find files",
+    },
+    c = {
+      function()
+        require("telescope.builtin").commands()
+      end,
+      "find command",
+    },
+    g = {
+      function()
+        require("telescope.builtin").live_grep()
+      end,
+      "Find text(live grep)",
+    },
+    F = {
+      function()
+        require("telescope.builtin").builtin()
+      end,
+      "built in",
+    },
   },
   ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
   e = {
