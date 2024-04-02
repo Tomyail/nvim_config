@@ -16,6 +16,3 @@ require("user.symbol-outline")
 require("user.snippet")
 require("user.leap")
 require("user.mini")
-
--- 当 vim.g.loaded_matchparen 设置为 true 时，matchparen 插件不会被加载，因此括号匹配的高亮显示会被关闭。这是因为在加载插件的过程中，Neovim 会检查每个插件的 loaded_ 前缀的全局变量（如果存在的话），如果该变量设置为 true，那么对应的插件就不会被加载。
-vim.g.loaded_matchparen = true

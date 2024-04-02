@@ -88,6 +88,11 @@ local basic = {
   },
 
   {
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    opts = {},
+  },
+  {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "canary",
     dependencies = {
@@ -274,7 +279,7 @@ plugins = basic
 
 local opts = {
   defaults = {
-    lazy = true, -- should plugins be lazy-loaded?
+    lazy = false, -- should plugins be lazy-loaded?
   },
   -- your configuration comes here
   -- or leave it empty to use the default settings
