@@ -277,8 +277,23 @@ local opts = {
   defaults = {
     lazy = false, -- should plugins be lazy-loaded?
   },
+  spec = {
+    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    -- {
+    --   "LazyVim/LazyVim",
+    --   import = "lazyvim.plugins",
+    --   opts = {
+    --     news = {
+    --       lazyvim = true,
+    --       neovim = true,
+    --     },
+    --   },
+    -- },
+    { import = "plugins" },
+  },
+
   -- your configuration comes here
   -- or leave it empty to use the default settings
   -- refer to the configuration section below
 }
-require("lazy").setup(plugins, opts)
+require("lazy").setup(opts)
