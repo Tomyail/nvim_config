@@ -20,7 +20,16 @@ local opts = {
 local mappings = {
   c = {
     name = "ChatGPT",
-    c = { "<cmd>CopilotChatToggle<CR>", "ChatGPT" },
+    -- c = { "<cmd>CopilotChatToggle<CR>", "ChatGPT" },
+    c = {
+      function()
+        local chat = require("CopilotChat")
+        chat.toggle({
+          selection = require("CopilotChat.select").buffer,
+        })
+      end,
+      "ChatGPT with buffer",
+    },
     g = { "<cmd>CopilotChatCommitStaged(English)<CR>", "CopilotChatCommitStaged(English)" },
     G = {
       function()
