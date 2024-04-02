@@ -47,11 +47,6 @@ vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
 vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
 
---[[ disable codeium for TelescopePrompt ]]
-vim.g.codeium_filetypes = {
-	TelescopePrompt = false,
-}
-
 -- set exrc
 -- set guicursor=
 -- set relativenumber
