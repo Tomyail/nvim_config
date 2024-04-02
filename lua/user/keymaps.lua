@@ -61,7 +61,7 @@ keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- use Esc to exit terminal mode
-keymap("t", "<Esc>", "<C-\\><C-n>", opts)
+-- keymap("t", "<Esc>", "<C-\\><C-n>", opts)
 -- vim.api.nvim_set_keymap("t", "<Leader><ESC>", "<C-\\><C-n>", { noremap = true })
 
 -- tmux

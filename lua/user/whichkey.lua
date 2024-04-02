@@ -17,6 +17,9 @@ local opts = {
   nowait = true, -- use `nowait` when creating keymaps
 }
 
+local Terminal = require("toggleterm.terminal").Terminal
+local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
+
 local mappings = {
   c = {
     name = "ChatGPT",
@@ -129,7 +132,13 @@ local mappings = {
   --[[ }, ]]
   g = {
     name = "Git",
-    g = { "<cmd>LazyGit<CR>", "Lazygit" },
+    -- g = { "<cmd>LazyGit<CR>", "Lazygit" },
+    g = {
+      function()
+        lazygit:toggle()
+      end,
+      "Lazygit",
+    },
     j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
     k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
     l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },

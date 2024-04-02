@@ -196,10 +196,6 @@ local basic = {
   },
 
   {
-    "kdheepak/lazygit.nvim",
-    event = "VeryLazy",
-  },
-  {
 
     "lewis6991/gitsigns.nvim",
     opts = {
