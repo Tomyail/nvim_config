@@ -4,7 +4,6 @@ return {
     "stevearc/conform.nvim",
 
     opts = function()
-      local slow_format_filetypes = {}
       return {
         formatters_by_ft = {
           lua = { "stylua" },
