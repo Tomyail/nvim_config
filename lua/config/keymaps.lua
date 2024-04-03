@@ -6,10 +6,10 @@
 local map = vim.keymap.set
 local del = vim.keymap.del
 
--- del("n", "<leader>ww")
+-- del("n", "<leader>w")
 -- del("n", "<leader>wd")
 -- del("n", "<leader>w-")
 -- del("n", "<leader>w|")
-
--- map("n", "<leader>w", "<cmd>w!<cr>", { desc = "Save" })
-
+-- del("n", "<leader>ww")
+-- 本来希望 <leader>w 保存的,但是默认注册<leader>w的二级菜单,导致一级的w绑定了window ,而且不能解绑,所以只能用ww了
+map("n", "<leader>ww", "<cmd>w!<cr>", { desc = "Save" })
