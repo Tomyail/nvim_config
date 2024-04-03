@@ -1,5 +1,34 @@
 return {
-
+  {
+    lazy = false,
+    "tomyail/yasi.nvim",
+    dependencies = {
+      "uga-rosa/utf8.nvim",
+    },
+    opts = {
+      lang = {
+        cjk = {
+          methods = {
+            {
+              os = "darwin",
+              cmd = "im-select",
+              input = "im.rime.inputmethod.Squirrel.Hans", -- I use [Rime](https://github.com/rime/squirrel)
+            },
+          },
+        },
+      },
+    },
+    config = function(_plugin, opts)
+      require("yasi").setup(opts)
+      vim.api.nvim_create_autocmd("CmdlineEnter", {
+        callback = function()
+          local yasi = require("yasi")
+          yasi.change_to_default()
+        end,
+      })
+    end,
+    dir = vim.fn.stdpath("config") .. "/yasi",
+  },
   {
     "christoomey/vim-tmux-navigator",
     lazy = false,
