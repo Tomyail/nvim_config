@@ -6,10 +6,9 @@
 local map = vim.keymap.set
 local del = vim.keymap.del
 
--- del("n", "<leader>w")
--- del("n", "<leader>wd")
--- del("n", "<leader>w-")
--- del("n", "<leader>w|")
--- del("n", "<leader>ww")
--- 本来希望 <leader>w 保存的,但是默认注册<leader>w的二级菜单,导致一级的w绑定了window ,而且不能解绑,所以只能用ww了
-map("n", "<leader>ww", "<cmd>w!<cr>", { desc = "Save" })
+-- 因为在whichkkey 自定义 <leader>w是保存文件,所以需要删掉 所有的子命令,否则 leader w 冲突
+del("n", "<leader>wd")
+del("n", "<leader>w-")
+del("n", "<leader>w|")
+del("n", "<leader>ww")
+-- map("n", "<leader>ww", "<cmd>w!<cr>", { desc = "Save" })

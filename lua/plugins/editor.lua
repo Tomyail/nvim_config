@@ -1,4 +1,17 @@
 return {
+  -- override default plguns
+  {
+    "folke/which-key.nvim",
+    opts = {
+      defaults = {
+        ["<leader>w"] = {
+          "<cmd>w!<cr>",
+          "Save",
+        },
+      },
+    },
+  },
+  -- below are custom plugin
   {
     lazy = false,
     "tomyail/yasi.nvim",
