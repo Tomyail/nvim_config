@@ -33,12 +33,12 @@ return {
 
   {
     "CopilotC-Nvim/CopilotChat.nvim",
+    event = "VeryLazy",
     branch = "canary",
     dependencies = {
       { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
       { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
     },
-    lazy = false,
     config = function()
       require("CopilotChat").setup({
         model = "gpt-4",
