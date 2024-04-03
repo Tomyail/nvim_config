@@ -18,7 +18,7 @@ return {
         },
       },
     },
-    config = function(_plugin, opts)
+    config = function(_, opts)
       require("yasi").setup(opts)
       vim.api.nvim_create_autocmd("CmdlineEnter", {
         callback = function()
