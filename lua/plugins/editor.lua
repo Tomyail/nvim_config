@@ -1,6 +1,16 @@
 return {
   -- override default plguns
   {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      window = {
+        mappings = {
+          ["o"] = "open",
+        },
+      },
+    },
+  },
+  {
     "folke/which-key.nvim",
     opts = {
       defaults = {
