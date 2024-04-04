@@ -73,9 +73,9 @@ return {
     lazy = true,
     ft = "markdown",
     keys = {
-      { "<leader>o", "+Obsidian" },
-      { "<leader>ot", "<cmd>ObsidianToday<cr>", "ObsidianToday" },
-      { "<leader>on", "<cmd>ObsidianNew<cr>", "ObsidianNew" },
+      { "<leader>o", desc = "+Obsidian" },
+      { "<leader>ot", "<cmd>ObsidianToday<cr>", desc = "ObsidianToday" },
+      { "<leader>on", "<cmd>ObsidianNew<cr>", desc = "ObsidianNew" },
     },
     dependencies = {
       -- Required.
@@ -139,6 +139,7 @@ return {
           path = function()
             local maybe_path = {
               "~/source/personal/obsidian/",
+              "~/Source/obsidian/",
             }
 
             for _, path in ipairs(maybe_path) do
