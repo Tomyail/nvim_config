@@ -104,4 +104,20 @@ return {
       },
     },
   },
+
+  {
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    opts = {},
+    keys = {
+
+      { "<leader>t", desc = "+Terminal" },
+      { "<leader>tt", ":ToggleTermToggleAll<cr>", desc = "ToggleTermToggleAll" },
+
+      { "<leader>t1", ":1ToggleTerm<cr>", desc = "1" },
+      { "<leader>t2", ":2ToggleTerm<cr>", desc = "2" },
+      { "<leader>t3", ":3ToggleTerm<cr>", desc = "3" },
+      { "<leader>t4", ":4ToggleTerm<cr>", desc = "4" },
+    },
+  },
 }
