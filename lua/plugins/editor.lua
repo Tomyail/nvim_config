@@ -102,7 +102,7 @@ return {
         -- folder = "journals/%Y/%m",
         folder = "journals",
         -- Optional, if you want to change the date format for the ID of daily notes.
-        -- date_format = "%Y-%m-%d",
+        date_format = "%Y_%m_%d",
         -- Optional, if you want to change the date format of the default alias of daily notes.
         -- alias_format = "%B %-d, %Y",
         -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
