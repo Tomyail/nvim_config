@@ -34,7 +34,6 @@ return {
         -- stylua: ignore
         center = {
 
-            -- { action = "ObsidianToday", desc="ObsidianToday", key="t"},
           { action = LazyVim.telescope("files"),                                    desc = " Find File",       icon = " ", key = "f" },
           { action = "ene | startinsert",                                        desc = " New File",        icon = " ", key = "n" },
           { action = "Telescope oldfiles",                                       desc = " Recent Files",    icon = " ", key = "r" },
@@ -119,5 +118,14 @@ return {
       { "<leader>t3", ":3ToggleTerm<cr>", desc = "3" },
       { "<leader>t4", ":4ToggleTerm<cr>", desc = "4" },
     },
+  },
+  {
+    "s1n7ax/nvim-window-picker",
+    name = "window-picker",
+    event = "VeryLazy",
+    version = "2.*",
+    config = function()
+      require("window-picker").setup()
+    end,
   },
 }
