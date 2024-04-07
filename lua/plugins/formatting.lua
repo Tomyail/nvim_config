@@ -5,6 +5,15 @@ return {
 
     opts = function()
       return {
+        format = {
+          -- 当没有配置额外的 formatter 时, 默认不会用lsp的format. 这个选项将打开默认的lsp, 但是只有filter 是true 才会执行
+          lsp_fallback = true,
+          filter = function(client)
+            local fallback_list = { "elixirls" }
+            return vim.tbl_contains(fallback_list, client.name)
+          end,
+        },
+
         formatters_by_ft = {
           lua = { "stylua" },
           -- Conform will run multiple formatters sequentially
@@ -14,26 +23,6 @@ return {
           vue = { { "prettierd", "prettier" } },
           markdown = { "prettierd", "markdownlint-cli2" },
         },
-        -- This snippet will automatically detect which formatters take too long to run synchronously and will run them async on save instead.
-        -- format_on_save = function(bufnr)
-        --   if slow_format_filetypes[vim.bo[bufnr].filetype] then
-        --     return
-        --   end
-        --   local function on_format(err)
-        --     if err and err:match("timeout$") then
-        --       slow_format_filetypes[vim.bo[bufnr].filetype] = true
-        --     end
-        --   end
-        --
-        --   return { timeout_ms = 200, lsp_fallback = true }, on_format
-        -- end,
-        --
-        -- format_after_save = function(bufnr)
-        --   if not slow_format_filetypes[vim.bo[bufnr].filetype] then
-        --     return
-        --   end
-        --   return { lsp_fallback = true }
-        -- end,
       }
     end,
   },
