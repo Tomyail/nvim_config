@@ -3,10 +3,24 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
+      filesystem = {
+        follow_current_file = { enabled = false, leave_dirs_open = true },
+      },
       window = {
         mappings = {
           ["o"] = "open",
         },
+      },
+    },
+    keys = {
+      { "<leader>e", desc = "+Neotree" },
+      { "<leader>ee", "<cmd>Neotree filesystem toggle<cr>", desc = "Toggle" },
+      {
+        "<leader>ef",
+        function()
+          vim.api.nvim_command("Neotree filesystem reveal")
+        end,
+        desc = "Find",
       },
     },
   },
