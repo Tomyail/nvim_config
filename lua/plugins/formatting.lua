@@ -13,7 +13,18 @@ return {
             return vim.tbl_contains(fallback_list, client.name)
           end,
         },
-
+        formatters = {
+          autocorrect = function(_)
+            return {
+              {
+                -- https://github.com/huacnlee/autocorrect
+                command = require("conform.util").find_executable({
+                  "/usr/local/bin/autocorrect --stdin",
+                }, "autocorrect"),
+              },
+            }
+          end,
+        },
         formatters_by_ft = {
           lua = { "stylua" },
           -- Conform will run multiple formatters sequentially
@@ -21,7 +32,11 @@ return {
           -- Use a sub-list to run only the first available formatter
           javascript = { { "prettierd", "prettier" } },
           vue = { { "prettierd", "prettier" } },
-          markdown = { "prettierd", "markdownlint-cli2" },
+          markdown = {
+            "prettierd",
+            "autocorrect",
+            "markdownlint-cli2",
+          },
         },
       }
     end,
