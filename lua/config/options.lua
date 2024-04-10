@@ -3,3 +3,7 @@
 -- Add any additional options here
 
 vim.g.mapleader = ","
+
+-- disable autoformat on save
+vim.g.autoformat = false
+
