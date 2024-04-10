@@ -1,8 +1,6 @@
 return {
-
   {
     "stevearc/conform.nvim",
-
     opts = function()
       return {
         format = {
@@ -14,6 +12,28 @@ return {
           end,
         },
         formatters = {
+          --  用来格式化内嵌的代码块
+          injected = {
+            options = {
+              ignore_errors = false,
+              lang_to_ext = {
+                bash = "sh",
+                c_sharp = "cs",
+                elixir = "exs",
+                javascript = "js",
+                julia = "jl",
+                latex = "tex",
+                markdown = "md",
+                python = "py",
+                ruby = "rb",
+                rust = "rs",
+                teal = "tl",
+                typescript = "ts",
+                plaintex = "tex",
+              },
+            },
+          },
+          --
           autocorrect = function(_)
             return {
               {
@@ -34,6 +54,7 @@ return {
           vue = { { "prettierd", "prettier" } },
           markdown = {
             "prettierd",
+            "injected",
             "autocorrect",
             "markdownlint-cli2",
           },
