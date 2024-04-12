@@ -2,6 +2,8 @@
 
 Yet another smart im. change input method depend in current cursor position's content
 
+![demo](./demo.mov)
+
 ## Prerequisite
 
 you need to install some tools to change input method. For example I use [im-select](https://github.com/daipeihust/im-select) to change input method in macOS.
