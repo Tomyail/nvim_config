@@ -11,6 +11,13 @@ local function find_in_array(table, fn)
         end
     end
 end
+local function find_in_map(table, fn)
+    for _, v in pairs(table) do
+        if fn(v) then
+            return v
+        end
+    end
+end
 local function get_matched_lang(lang_config, codepoint)
     local is_code_point_in_ranges = function(code_point, ranges)
         return find_in_array(ranges, function(range)
@@ -99,6 +106,7 @@ function M.setup(config)
         end,
     })
 
+    -- TODO support only trigger when specific file type
     vim.api.nvim_create_autocmd("InsertEnter", {
         callback = function()
             local current_line_content = vim.api.nvim_get_current_line()
@@ -121,7 +129,7 @@ function M.setup(config)
 end
 
 function M.change_input_by_name(name)
-    local lang = find_in_array(M.config.lang, function(lang)
+    local lang = find_in_map(M.config.lang, function(lang)
         return lang.name == name
     end)
     if lang then

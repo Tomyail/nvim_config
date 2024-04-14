@@ -55,6 +55,7 @@ return {
     },
     config = function()
       require("CopilotChat").setup({
+        auto_insert_mode =  true,
         model = "gpt-4",
         --[[ model = 'gpt-3.5-turbo', ]]
         prompts = {
@@ -71,6 +72,12 @@ return {
           if ft == "copilot-chat" then
             vim.bo.filetype = "markdown"
           end
+        end,
+      })
+      vim.api.nvim_create_autocmd("InsertEnter", {
+        pattern = "copilot-*",
+        callback = function()
+          require('yasi').change_input_by_name('cjk')
         end,
       })
     end,
