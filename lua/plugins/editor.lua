@@ -3,6 +3,8 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
+      -- https://github.com/nvim-neo-tree/neo-tree.nvim/issues/1365
+      auto_clean_after_session_restore = true,
       filesystem = {
         follow_current_file = { enabled = false, leave_dirs_open = true },
       },
