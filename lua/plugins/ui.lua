@@ -110,13 +110,13 @@ return {
     opts = {},
     keys = {
 
-      { "<leader>t", desc = "+Terminal" },
-      { "<leader>tt", ":ToggleTermToggleAll<cr>", desc = "ToggleTermToggleAll" },
+      -- { "<leader>t", desc = "+Terminal" },
+      -- { "<leader>tt", ":ToggleTermToggleAll<cr>", desc = "ToggleTermToggleAll" },
 
-      { "<leader>t1", ":1ToggleTerm<cr>", desc = "1" },
-      { "<leader>t2", ":2ToggleTerm<cr>", desc = "2" },
-      { "<leader>t3", ":3ToggleTerm<cr>", desc = "3" },
-      { "<leader>t4", ":4ToggleTerm<cr>", desc = "4" },
+      { "<leader>1", ":1ToggleTerm<cr>", desc = "ToggleTerm 1" },
+      { "<leader>2", ":2ToggleTerm<cr>", desc = "ToggleTerm 2" },
+      { "<leader>3", ":3ToggleTerm<cr>", desc = "ToggleTerm 3" },
+      { "<leader>4", ":4ToggleTerm<cr>", desc = "ToggleTerm 4" },
     },
   },
   {
