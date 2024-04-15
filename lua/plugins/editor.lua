@@ -24,6 +24,44 @@ return {
         end,
         desc = "Find",
       },
+      { "<leader>d", desc = "+ search under cursor" },
+      {
+        "<leader>dF",
+        function()
+          local state = require("neo-tree.sources.manager").get_state("filesystem")
+          local tree = state.tree
+          if not tree then
+            vim.notify("please open neotree first")
+            return
+          end
+          local node = tree:get_node()
+          local dir = node.type == "file" and node:get_parent_id() or node:get_id()
+
+          local builtin = require("telescope.builtin")
+          local themes = require("telescope.themes")
+          --	builtin.live_grep({ cwd = dir })
+          builtin.live_grep(themes.get_ivy({ cwd = dir }))
+        end,
+        desc = "grep",
+      },
+      {
+        "<leader>df",
+        function()
+          local state = require("neo-tree.sources.manager").get_state("filesystem")
+          local tree = state.tree
+          if not tree then
+            vim.notify("please open neotree first")
+            return
+          end
+          local node = tree:get_node()
+          local dir = node.type == "file" and node:get_parent_id() or node:get_id()
+
+          local builtin = require("telescope.builtin")
+          local themes = require("telescope.themes")
+          builtin.find_files(themes.get_ivy({ cwd = dir }))
+        end,
+        desc = "find",
+      },
     },
   },
   {
@@ -160,7 +198,6 @@ return {
           -- vim.notify(vim.inspect(path))
           -- vim.notify(vim.inspect(path:relative_to(note_path)))
           -- vim.notify(vim.inspect(note_path:relative_to(path)))
-
         end,
       },
       note_frontmatter_func = function(note)
