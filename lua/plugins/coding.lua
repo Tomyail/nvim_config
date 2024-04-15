@@ -55,7 +55,7 @@ return {
     },
     config = function()
       require("CopilotChat").setup({
-        auto_insert_mode =  true,
+        auto_insert_mode = true,
         model = "gpt-4",
         --[[ model = 'gpt-3.5-turbo', ]]
         prompts = {
@@ -77,12 +77,12 @@ return {
       vim.api.nvim_create_autocmd("InsertEnter", {
         pattern = "copilot-*",
         callback = function()
-          require('yasi').change_input_by_name('cjk')
+          require("yasi").change_input_by_name("cjk")
         end,
       })
     end,
     keys = {
-      { "<leader>a", "Ask" },
+      { "<leader>a", mode = { "n", "v" }, "Ask" },
       {
         "<leader>aa",
         function()
@@ -91,12 +91,41 @@ return {
             selection = require("CopilotChat.select").buffer,
           })
         end,
+        mode = { "n", "v" },
         desc = "Chat",
       },
       {
         "<leader>ag",
-        "<cmd>CopilotChatCommitStaged(English)<CR>",
+        "<cmd>CopilotChatCommitStaged<CR>",
         desc = "CopilotChatCommitStaged(English)",
+      },
+
+      {
+        "<leader>ae",
+        "<cmd>CopilotChatExplain<CR>",
+        mode = { "n", "v" },
+        desc = "CopilotChatExplain",
+      },
+
+      {
+        "<leader>af",
+        "<cmd>CopilotChatFixDiagnostic<CR>",
+        mode = { "n", "v" },
+        desc = "CopilotChatFixDiagnostic",
+      },
+
+      {
+        "<leader>ar",
+        "<cmd>CopilotChatReview<CR>",
+        mode = { "n", "v" },
+        desc = "CopilotChatReview",
+      },
+
+      {
+        "<leader>ad",
+        "<cmd>CopilotChatDocs<CR>",
+        mode = { "n", "v" },
+        desc = "CopilotChatDocs",
       },
 
       {
