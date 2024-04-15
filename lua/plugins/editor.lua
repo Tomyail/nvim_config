@@ -124,6 +124,44 @@ return {
         -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
         template = "日记.md",
       },
+      image_name_func = function()
+        -- Prefix image names with timestamp.
+        return string.format("%s-", os.time())
+      end,
+      attachments = {
+        -- The default folder to place images in via `:ObsidianPasteImg`.
+        -- If this is a relative path it will be interpreted as relative to the vault root.
+        -- You can always override this per image by passing a full path to the command instead of just a filename.
+        img_folder = "assets/imgs", -- This is the default
+        -- A function that determines the text to insert in the note when pasting an image.
+        -- It takes two arguments, the `obsidian.Client` and an `obsidian.Path` to the image file.
+        -- This is the default implementation.
+        ---@param client obsidian.Client
+        ---@param path obsidian.Path the absolute path to the image file
+        ---@return string
+        img_text_func = function(client, path)
+          path = client:vault_relative_path(path) or path
+          return string.format("![%s](%s)", path.name, path)
+          -- TODO get image path relative to current note
+          -- local current_note = client:current_note()
+          -- if not current_note then
+          --   return string.format("![%s](%s)", path.name, path)
+          -- end
+          --
+          --
+          -- local x = client:vault_root()
+          -- local note_path = current_note.path
+          -- local ok, relative_path = pcall(function()
+          --   return path:relative_to(note_path)
+          -- end)
+          --
+          -- vim.notify(vim.inspect(note_path))
+          -- vim.notify(vim.inspect(path))
+          -- vim.notify(vim.inspect(path:relative_to(note_path)))
+          -- vim.notify(vim.inspect(note_path:relative_to(path)))
+
+        end,
+      },
       note_frontmatter_func = function(note)
         if note.title then
           note:add_alias(note.title)
