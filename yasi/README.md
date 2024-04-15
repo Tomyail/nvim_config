@@ -2,6 +2,9 @@
 
 Yet another smart im. change input method depend in current cursor position's content
 
+https://github.com/Tomyail/nvim_conf/assets/350722/f7ebff2c-7bab-43a4-9706-bbc228ba45ae
+
+
 ## Prerequisite
 
 you need to install some tools to change input method. For example I use [im-select](https://github.com/daipeihust/im-select) to change input method in macOS.
