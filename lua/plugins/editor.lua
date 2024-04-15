@@ -102,6 +102,7 @@ return {
       { "<leader>o", desc = "+Obsidian" },
       { "<leader>ot", "<cmd>ObsidianToday<cr>", desc = "ObsidianToday" },
       { "<leader>on", "<cmd>ObsidianNew<cr>", desc = "ObsidianNew" },
+      { "<leader>ob", "<cmd>ObsidianBacklinks<cr>", desc = "ObsidianBacklinks" },
     },
     dependencies = {
       -- Required.
