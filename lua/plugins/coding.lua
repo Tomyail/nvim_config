@@ -3,6 +3,7 @@ return {
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
       local cmp = require("cmp")
+      local compare = require("cmp.config.compare")
       local custom = {
 
         mapping = cmp.mapping.preset.insert({
@@ -23,6 +24,20 @@ return {
           --   c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
           -- }),
         }),
+
+        sorting = {
+          priority_weight = 2,
+          comparators = {
+            compare.offset,
+            compare.exact,
+            compare.recently_used,
+            compare.score,
+            compare.locality,
+            compare.kind,
+            compare.length,
+            compare.order,
+          },
+        },
       }
 
       local merged = vim.tbl_deep_extend("force", opts, custom)
