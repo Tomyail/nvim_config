@@ -181,7 +181,7 @@ return {
         img_text_func = function(client, path)
           path = client:vault_relative_path(path) or path
           return string.format("![%s](%s)", path.name, path)
-          -- TODO get image path relative to current note
+          -- TODO: get image path relative to current note
           -- local current_note = client:current_note()
           -- if not current_note then
           --   return string.format("![%s](%s)", path.name, path)

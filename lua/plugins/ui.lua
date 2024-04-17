@@ -75,7 +75,7 @@ return {
 
     "stevearc/dressing.nvim",
     opts = {
-      -- TODO mapping not working
+      -- TODO: mapping not working
       input = {
         mappings = {
           n = {

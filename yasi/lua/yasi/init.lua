@@ -96,7 +96,7 @@ end
 function M.setup(config)
     local defaultConfig = require("yasi.config")
     local merged_config = vim.tbl_deep_extend("force", defaultConfig, config)
-    -- TODO validate config
+    -- TODO: validate config
     M.config = merged_config
 
     logger.set_log_level(merged_config.logLevel)
@@ -106,7 +106,7 @@ function M.setup(config)
         end,
     })
 
-    -- TODO support only trigger when specific file type
+    -- TODO: support only trigger when specific file type
     vim.api.nvim_create_autocmd("InsertEnter", {
         callback = function()
             local current_line_content = vim.api.nvim_get_current_line()
@@ -143,5 +143,8 @@ end
 function M.change_to_default()
     change_input_by_os(M.config.default)
 end
+
+
+-- TODO: 支持ciw的时候判断删除的是不是中文,如果是也直接切换到中文
 
 return M
