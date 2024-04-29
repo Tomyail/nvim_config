@@ -261,6 +261,7 @@ return {
             local maybe_path = {
               "~/source/personal/obsidian/",
               "~/Source/obsidian/",
+              "~/source/obsidian/",
             }
 
             for _, path in ipairs(maybe_path) do
