@@ -11,3 +11,12 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+-- using javascript filetpye for omnijs
+vim.api.nvim_command('autocmd BufRead,BufNewFile *.omnijs set filetype=javascript')
+
+-- vim.api.nvim_create_autocmd({ "FileType" }, {
+--   pattern = { "omnijs" },
+--   callback = function()
+--     vim.opt_local.filetype = "javascript"
+--   end,
+-- })
