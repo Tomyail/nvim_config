@@ -109,12 +109,10 @@ return {
     version = "*",
     opts = {},
     keys = {
-
-      -- { "<leader>t", desc = "+Terminal" },
-      -- { "<leader>tt", ":ToggleTermToggleAll<cr>", desc = "ToggleTermToggleAll" },
-
-      { "<leader>1", ":1ToggleTerm<cr>", desc = "ToggleTerm 1" },
-      { "<leader>2", ":2ToggleTerm<cr>", desc = "ToggleTerm 2" },
+      { "<leader>t", desc = "+Terminal" },
+      { "<leader>tt", ":0ToggleTerm direction=float<cr>", desc = "ToggleTermToggleAll" },
+      { "<leader>1", ":1ToggleTerm direction=horizontal<cr>", desc = "ToggleTerm 1" },
+      { "<leader>2", ":2ToggleTerm direction=horizontal<cr>", desc = "ToggleTerm 2" },
       { "<leader>3", ":3ToggleTerm<cr>", desc = "ToggleTerm 3" },
       { "<leader>4", ":4ToggleTerm<cr>", desc = "ToggleTerm 4" },
     },
