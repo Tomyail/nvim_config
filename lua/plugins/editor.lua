@@ -274,4 +274,32 @@ return {
       },
     },
   },
+  {
+    "kawre/leetcode.nvim",
+    build = ":TSUpdate html",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "nvim-lua/plenary.nvim", -- required by telescope
+      "MunifTanjim/nui.nvim",
+
+      -- optional
+      "nvim-treesitter/nvim-treesitter",
+      "rcarriga/nvim-notify",
+      "nvim-tree/nvim-web-devicons",
+    },
+    opts = {
+      lang = "javascript",
+      cn = {
+        enabled = true,
+        translator = true,
+        translate_problems = true,
+      },
+      storage = {
+
+        home = vim.fn.isdirectory(vim.fn.expand("~/Source/leetcode/")) == 1 and vim.fn.expand("~/Source/leetcode/")
+          or vim.fn.stdpath("data") .. "/leetcode",
+      },
+      -- configuration goes here
+    },
+  },
 }
