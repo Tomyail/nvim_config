@@ -1,6 +1,7 @@
 {
   "extras": [
     "lazyvim.plugins.extras.coding.copilot",
+    "lazyvim.plugins.extras.coding.copilot-chat",
     "lazyvim.plugins.extras.coding.yanky",
     "lazyvim.plugins.extras.editor.outline",
     "lazyvim.plugins.extras.lang.ansible",

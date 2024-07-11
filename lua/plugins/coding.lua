@@ -57,34 +57,22 @@ return {
           markdown = true,
           yaml = true,
         },
+        copilot_node_command = vim.fn.expand("$HOME") .. "/.asdf/installs/nodejs/18.19.0/bin/node", -- Node.js version must be > 18.x
       })
     end,
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    event = "VeryLazy",
     branch = "canary",
-    dependencies = {
-      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-      { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
-    },
-    config = function()
-      require("CopilotChat").setup({
-        auto_insert_mode = true,
-        model = "gpt-4",
-        --[[ model = 'gpt-3.5-turbo', ]]
-        prompts = {
-          Explain = {
-            prompt = "/COPILOT_EXPLAIN 将上述代码的解释写为文本段落",
-          },
-        },
-      })
+    config = function(_, opts)
       vim.api.nvim_create_autocmd("BufEnter", {
         pattern = "copilot-*",
         callback = function()
           -- Get current filetype and set it to markdown if the current filetype is copilot-chat
           local ft = vim.bo.filetype
           if ft == "copilot-chat" then
+            vim.opt_local.relativenumber = false
+            vim.opt_local.number = false
             vim.bo.filetype = "markdown"
           end
         end,
@@ -95,19 +83,30 @@ return {
           require("yasi").change_input_by_name("cjk")
         end,
       })
+
+      local custom = {
+        auto_insert_mode = true,
+        model = "gpt-4",
+        --[[ model = 'gpt-3.5-turbo', ]]
+        prompts = {
+          Explain = {
+            prompt = "/COPILOT_EXPLAIN 将上述代码的解释写为文本段落",
+          },
+        },
+      }
+      local merged = vim.tbl_deep_extend("force", opts, custom)
+      require("CopilotChat.integrations.cmp").setup()
+      require("CopilotChat").setup(merged)
     end,
     keys = {
-      { "<leader>a", mode = { "n", "v" }, "Ask" },
+      { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
       {
         "<leader>aa",
         function()
-          local chat = require("CopilotChat")
-          chat.toggle({
-            selection = require("CopilotChat.select").buffer,
-          })
+          return require("CopilotChat").toggle()
         end,
+        desc = "Toggle (CopilotChat)",
         mode = { "n", "v" },
-        desc = "Chat",
       },
       {
         "<leader>ag",
@@ -166,6 +165,26 @@ return {
           require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
         end,
         desc = "show help",
+      },
+      { "<c-s>", "<CR>", ft = "copilot-chat", desc = "Submit Prompt", remap = true },
+      {
+        "<leader>ax",
+        function()
+          return require("CopilotChat").reset()
+        end,
+        desc = "Clear (CopilotChat)",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>aq",
+        function()
+          local input = vim.fn.input("Quick Chat: ")
+          if input ~= "" then
+            require("CopilotChat").ask(input)
+          end
+        end,
+        desc = "Quick Chat (CopilotChat)",
+        mode = { "n", "v" },
       },
     },
   },
