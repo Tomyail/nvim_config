@@ -67,7 +67,7 @@ return {
   {
     "folke/which-key.nvim",
     opts = {
-      defaults = {
+      spec = {
         ["<leader>w"] = {
           "<cmd>w!<cr>",
           "Save",
