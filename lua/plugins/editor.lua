@@ -96,7 +96,7 @@ return {
             {
               os = "darwin",
               cmd = "im-select",
-              input = "im.rime.inputmethod.Squirrel.Hans", -- I use [Rime](https://github.com/rime/squirrel)
+              input = "com.apple.inputmethod.SCIM.ITABC", -- I use [Rime](https://github.com/rime/squirrel)
             },
           },
         },

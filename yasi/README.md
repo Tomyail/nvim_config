@@ -84,7 +84,7 @@ For example, I prefer to use [Rime](https://rime.im/) to input Chinese. Here is 
             {
               os = "darwin",
               cmd = "im-select",
-              input = "im.rime.inputmethod.Squirrel.Hans",
+              input = "com.apple.inputmethod.SCIM.ITABC",
             },
           },
         },
