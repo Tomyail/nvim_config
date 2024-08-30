@@ -216,16 +216,23 @@ return {
 
         -- Add the create date and time to the frontmatter if they don't exist.
         --  because file's mtime is not reliable in some cases. For example, when you copy a file
-        if not out.create_date then
-          out.create_date = os.date("%Y-%m-%d")
-        end
-        if not out.create_time then
-          out.create_time = os.date("%H:%M")
+        if not out.created_at then
+          out.created_at = os.date("%Y-%m-%d %H:%M")
         end
 
+        if not out.title then
+          out.title = note.id
+        end
+
+        if not out.slug then
+          out.slug = note.id
+        end
+
+        if not out.description then
+          out.description = ""
+        end
         -- always update update_date and update_time
-        out.update_date = os.date("%Y-%m-%d")
-        out.update_time = os.date("%H:%M")
+        out.updated_at = os.date("%Y-%m-%d %H:%M")
 
         return out
       end,
