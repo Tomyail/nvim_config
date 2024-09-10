@@ -49,3 +49,19 @@ vim.api.nvim_create_autocmd("TermOpen", {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  pattern = "*",
+  callback = function()
+    local filetype = vim.bo.filetype
+    local buftype = vim.bo.buftype
+    -- print("Current filetype: " .. filetype)
+    -- print("Current buftype: " .. buftype)
+    -- only normal buffer's winbar is set
+    if buftype == "" then
+      vim.opt_local.winbar = "%=%m %f"
+    else
+      vim.opt_local.winbar = nil
+    end
+  end,
+})
