@@ -123,19 +123,22 @@ return {
     event = "VeryLazy",
     version = "2.*",
     config = function()
-      require("window-picker").setup()
+      require("window-picker").setup({
+        show_prompt = false,
+        hint = "floating-big-letter",
+      })
     end,
   },
   {
-  "folke/edgy.nvim",
-  optional = true,
-  opts = function(_, opts)
-    opts.right = opts.right or {}
-    table.insert(opts.right, {
-      ft = "copilot-chat",
-      title = "Copilot Chat",
-      size = { width = 20 },
-    })
-  end,
-}
+    "folke/edgy.nvim",
+    optional = true,
+    opts = function(_, opts)
+      opts.right = opts.right or {}
+      table.insert(opts.right, {
+        ft = "copilot-chat",
+        title = "Copilot Chat",
+        size = { width = 20 },
+      })
+    end,
+  },
 }
