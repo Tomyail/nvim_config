@@ -3,8 +3,10 @@ return {
     "stevearc/conform.nvim",
     opts = function()
       return {
-        format = {
+        defaut_format_opts = {
+          timeout_ms = 3000,
           -- 当没有配置额外的 formatter 时, 默认不会用lsp的format. 这个选项将打开默认的lsp, 但是只有filter 是true 才会执行
+          lsp_format = "fallback",
           lsp_fallback = true,
           filter = function(client)
             local fallback_list = { "elixirls", "jsonls" }
@@ -50,9 +52,9 @@ return {
           -- Conform will run multiple formatters sequentially
           python = { "isort", "black" },
           -- Use a sub-list to run only the first available formatter
-          javascript = { { "prettierd", "prettier" } },
-          typescript = { { "prettierd", "prettier" } },
-          vue = { { "prettierd", "prettier" } },
+          javascript = { "prettierd", "prettier", stop_after_first = true },
+          typescript = { "prettierd", "prettier", stop_after_first = true },
+          vue = { "prettierd", "prettier", stop_after_first = true },
           markdown = {
             "prettierd",
             "injected",
