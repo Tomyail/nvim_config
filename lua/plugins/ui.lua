@@ -126,6 +126,17 @@ return {
       require("window-picker").setup({
         show_prompt = false,
         hint = "floating-big-letter",
+        filter_rules = {
+
+          -- filter using buffer options
+          bo = {
+            -- if the file type is one of following, the window will be ignored
+            filetype = { "NvimTree", "neo-tree", "notify" },
+
+            -- if the file type is one of following, the window will be ignored
+            buftype = { "terminal",'quickfix' },
+          },
+        },
       })
     end,
   },
