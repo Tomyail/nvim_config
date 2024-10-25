@@ -115,6 +115,9 @@ return {
   },
   {
     "christoomey/vim-tmux-navigator",
+    enabled = function()
+      return vim.fn.getenv("TERM_PROGRAM") == "tmux"
+    end,
     lazy = false,
     cmd = {
       "TmuxNavigateLeft",
@@ -129,6 +132,39 @@ return {
       { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
       { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+    },
+  },
+  {
+    "mrjones2014/smart-splits.nvim",
+    enabled = function()
+      return vim.fn.getenv("TERM_PROGRAM") == "WezTerm"
+    end,
+    keys = {
+      {
+        "<c-h>",
+        function()
+          require("smart-splits").move_cursor_left()
+        end,
+      },
+      {
+        "<c-j>",
+
+        function()
+          require("smart-splits").move_cursor_down()
+        end,
+      },
+      {
+        "<c-k>",
+        function()
+          require("smart-splits").move_cursor_up()
+        end,
+      },
+      {
+        "<c-l>",
+        function()
+          require("smart-splits").move_cursor_right()
+        end,
+      },
     },
   },
   {
