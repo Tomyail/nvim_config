@@ -1,28 +1,6 @@
--- require("user.keymaps")
--- require("user.plugins")
--- require("user.autocommands")
--- require("user.options")
--- require("user.functions")
--- require("user.cmp")
--- require("user.lsp")
--- require("user.telescope")
--- require("user.treesitter")
--- require("user.autopairs")
--- require("user.nvim-tree")
--- require("user.bufferline")
--- require("user.lualine")
--- require("user.whichkey")
--- require("user.symbol-outline")
--- require("user.snippet")
--- require("user.leap")
--- require("user.mini")
---
---
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
-
     "git",
     "clone",
     "--filter=blob:none",

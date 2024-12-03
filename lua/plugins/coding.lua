@@ -45,148 +45,148 @@ return {
     end,
   },
 
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-        filetypes = {
-          markdown = true,
-          yaml = true,
-        },
-        -- copilot_node_command = vim.fn.expand("$HOME") .. "/.asdf/installs/nodejs/18.19.0/bin/node", -- Node.js version must be > 18.x
-      })
-    end,
-  },
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "canary",
-    config = function(_, opts)
-      vim.api.nvim_create_autocmd("BufEnter", {
-        pattern = "copilot-*",
-        callback = function()
-          -- Get current filetype and set it to markdown if the current filetype is copilot-chat
-          local ft = vim.bo.filetype
-          if ft == "copilot-chat" then
-            vim.opt_local.relativenumber = false
-            vim.opt_local.number = false
-            vim.bo.filetype = "markdown"
-          end
-        end,
-      })
-      -- vim.api.nvim_create_autocmd("InsertEnter", {
-      --   pattern = "copilot-*",
-      --   callback = function()
-      --     require("yasi").change_input_by_name("cjk")
-      --   end,
-      -- })
-
-      local custom = {
-        auto_insert_mode = true,
-        -- model = 'gpt-4',
-        prompts = {
-          Explain = {
-            prompt = "/COPILOT_EXPLAIN 将上述代码的解释写为文本段落",
-          },
-        },
-      }
-      local merged = vim.tbl_deep_extend("force", opts, custom)
-      require("CopilotChat.integrations.cmp").setup()
-      require("CopilotChat").setup(merged)
-    end,
-    keys = {
-      { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
-      {
-        "<leader>aa",
-        function()
-          return require("CopilotChat").toggle()
-        end,
-        desc = "Toggle (CopilotChat)",
-        mode = { "n", "v" },
-      },
-      {
-        "<leader>ag",
-        "<cmd>CopilotChatCommitStaged<CR>",
-        desc = "CopilotChatCommitStaged(English)",
-      },
-
-      {
-        "<leader>ae",
-        "<cmd>CopilotChatExplain<CR>",
-        mode = { "n", "v" },
-        desc = "CopilotChatExplain",
-      },
-
-      {
-        "<leader>af",
-        "<cmd>CopilotChatFixDiagnostic<CR>",
-        mode = { "n", "v" },
-        desc = "CopilotChatFixDiagnostic",
-      },
-
-      {
-        "<leader>ar",
-        "<cmd>CopilotChatReview<CR>",
-        mode = { "n", "v" },
-        desc = "CopilotChatReview",
-      },
-
-      {
-        "<leader>ad",
-        "<cmd>CopilotChatDocs<CR>",
-        mode = { "n", "v" },
-        desc = "CopilotChatDocs",
-      },
-
-      {
-        "<leader>aG",
-        function()
-          local chat = require("CopilotChat")
-          local select = require("CopilotChat.select")
-          chat.ask(
-            "使用 commitizen convention 编写更改的提交标题。确保标题最多包含 50 个字符。 使用 gitcommit 语言将整个消息包装在代码块中,并用中文返回",
-            {
-              selection = function(source)
-                return select.gitdiff(source, true)
-              end,
-            }
-          )
-        end,
-        desc = "CopilotChatCommitStaged(中文)",
-      },
-      {
-        "<leader>ap",
-        function()
-          local actions = require("CopilotChat.actions")
-          require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
-        end,
-        desc = "show help",
-      },
-      { "<c-s>", "<CR>", ft = "copilot-chat", desc = "Submit Prompt", remap = true },
-      {
-        "<leader>ax",
-        function()
-          return require("CopilotChat").reset()
-        end,
-        desc = "Clear (CopilotChat)",
-        mode = { "n", "v" },
-      },
-      {
-        "<leader>aq",
-        function()
-          local input = vim.fn.input("Quick Chat: ")
-          if input ~= "" then
-            require("CopilotChat").ask(input)
-          end
-        end,
-        desc = "Quick Chat (CopilotChat)",
-        mode = { "n", "v" },
-      },
-    },
-  },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   event = "InsertEnter",
+  --   config = function()
+  --     require("copilot").setup({
+  --       suggestion = { enabled = false },
+  --       panel = { enabled = false },
+  --       filetypes = {
+  --         markdown = true,
+  --         yaml = true,
+  --       },
+  --       -- copilot_node_command = vim.fn.expand("$HOME") .. "/.asdf/installs/nodejs/18.19.0/bin/node", -- Node.js version must be > 18.x
+  --     })
+  --   end,
+  -- },
+  -- {
+  --   "CopilotC-Nvim/CopilotChat.nvim",
+  --   -- build = "make tiktoken",
+  --   config = function(_, opts)
+  --     vim.api.nvim_create_autocmd("BufEnter", {
+  --       pattern = "copilot-*",
+  --       callback = function()
+  --         -- Get current filetype and set it to markdown if the current filetype is copilot-chat
+  --         local ft = vim.bo.filetype
+  --         if ft == "copilot-chat" then
+  --           vim.opt_local.relativenumber = false
+  --           vim.opt_local.number = false
+  --           vim.bo.filetype = "markdown"
+  --         end
+  --       end,
+  --     })
+  --     -- vim.api.nvim_create_autocmd("InsertEnter", {
+  --     --   pattern = "copilot-*",
+  --     --   callback = function()
+  --     --     require("yasi").change_input_by_name("cjk")
+  --     --   end,
+  --     -- })
+  --
+  --     local custom = {
+  --       auto_insert_mode = true,
+  --       -- model = 'gpt-4',
+  --       prompts = {
+  --         Explain = {
+  --           prompt = "/COPILOT_EXPLAIN 将上述代码的解释写为文本段落",
+  --         },
+  --       },
+  --     }
+  --     local merged = vim.tbl_deep_extend("force", opts, custom)
+  --     require("CopilotChat.integrations.cmp").setup()
+  --     require("CopilotChat").setup(merged)
+  --   end,
+  --   keys = {
+  --     { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
+  --     {
+  --       "<leader>aa",
+  --       function()
+  --         return require("CopilotChat").toggle()
+  --       end,
+  --       desc = "Toggle (CopilotChat)",
+  --       mode = { "n", "v" },
+  --     },
+  --     {
+  --       "<leader>ag",
+  --       "<cmd>CopilotChatCommitStaged<CR>",
+  --       desc = "CopilotChatCommitStaged(English)",
+  --     },
+  --
+  --     {
+  --       "<leader>ae",
+  --       "<cmd>CopilotChatExplain<CR>",
+  --       mode = { "n", "v" },
+  --       desc = "CopilotChatExplain",
+  --     },
+  --
+  --     {
+  --       "<leader>af",
+  --       "<cmd>CopilotChatFixDiagnostic<CR>",
+  --       mode = { "n", "v" },
+  --       desc = "CopilotChatFixDiagnostic",
+  --     },
+  --
+  --     {
+  --       "<leader>ar",
+  --       "<cmd>CopilotChatReview<CR>",
+  --       mode = { "n", "v" },
+  --       desc = "CopilotChatReview",
+  --     },
+  --
+  --     {
+  --       "<leader>ad",
+  --       "<cmd>CopilotChatDocs<CR>",
+  --       mode = { "n", "v" },
+  --       desc = "CopilotChatDocs",
+  --     },
+  --
+  --     {
+  --       "<leader>aG",
+  --       function()
+  --         local chat = require("CopilotChat")
+  --         local select = require("CopilotChat.select")
+  --         chat.ask(
+  --           "使用 commitizen convention 编写更改的提交标题。确保标题最多包含 50 个字符。 使用 gitcommit 语言将整个消息包装在代码块中,并用中文返回",
+  --           {
+  --             selection = function(source)
+  --               return select.gitdiff(source, true)
+  --             end,
+  --           }
+  --         )
+  --       end,
+  --       desc = "CopilotChatCommitStaged(中文)",
+  --     },
+  --     {
+  --       "<leader>ap",
+  --       function()
+  --         local actions = require("CopilotChat.actions")
+  --         require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+  --       end,
+  --       desc = "show help",
+  --     },
+  --     { "<c-s>", "<CR>", ft = "copilot-chat", desc = "Submit Prompt", remap = true },
+  --     {
+  --       "<leader>ax",
+  --       function()
+  --         return require("CopilotChat").reset()
+  --       end,
+  --       desc = "Clear (CopilotChat)",
+  --       mode = { "n", "v" },
+  --     },
+  --     {
+  --       "<leader>aq",
+  --       function()
+  --         local input = vim.fn.input("Quick Chat: ")
+  --         if input ~= "" then
+  --           require("CopilotChat").ask(input)
+  --         end
+  --       end,
+  --       desc = "Quick Chat (CopilotChat)",
+  --       mode = { "n", "v" },
+  --     },
+  --   },
+  -- },
   -- {
   --   "yetone/avante.nvim",
   --   event = "VeryLazy",
