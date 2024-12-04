@@ -70,23 +70,44 @@ local function change_input_by_os(lang)
 end
 
 local function get_range(str, col)
-    -- lua's array index starts from 1!!
-    local pre_p = 0
-    local pre_c = ""
     local ranges = {}
+    local prev_pos = 0
+    local prev_char = ""
+    local str_len = string.len(str)
 
-    for p, c in utf8.codes(str) do
-        local range = { start_idx = pre_p, end_idx = p, char = pre_c }
-        table.insert(ranges, range)
-        pre_p = p
-        pre_c = c
+    -- 收集所有字符的位置和长度信息
+    for pos, char in utf8.codes(str) do
+        if prev_pos > 0 then  -- 跳过第一次循环
+            table.insert(ranges, {
+                start_idx = prev_pos,
+                end_idx = pos - 1,
+                char = prev_char
+            })
+        end
+        prev_pos = pos
+        prev_char = char
     end
-    table.insert(ranges, { start_idx = pre_p, end_idx = string.len(str), char = pre_c })
-    table.remove(ranges, 1)
 
-    return find_in_array(ranges, function(range)
-        return col >= range.start_idx and col <= range.end_idx
-    end)
+    -- 处理最后一个字符
+    if prev_pos > 0 then
+        local last_char_len = str_len - prev_pos + 1
+        table.insert(ranges, {
+            start_idx = prev_pos,
+            end_idx = prev_pos + last_char_len - 1,
+            char = prev_char
+        })
+    end
+
+    -- 查找光标所在的范围
+    local found_range = nil
+    for _, range in ipairs(ranges) do
+        if col >= range.start_idx and col <= range.end_idx then
+            found_range = range
+            break
+        end
+    end
+    
+    return found_range, ranges
 end
 
 function M.os_name()
@@ -96,33 +117,66 @@ end
 function M.setup(config)
     local defaultConfig = require("yasi.config")
     local merged_config = vim.tbl_deep_extend("force", defaultConfig, config)
-    -- TODO: validate config
     M.config = merged_config
 
     logger.set_log_level(merged_config.logLevel)
+    
+    -- 记录上一次光标位置的变量
+    local last_cursor_pos = { line = 0, col = 0 }
+    
+    -- 在光标移动时记录位置
+    vim.api.nvim_create_autocmd("CursorMoved", {
+        callback = function()
+            local pos = vim.api.nvim_win_get_cursor(0)
+            last_cursor_pos = { line = pos[1], col = pos[2] }
+        end,
+    })
+
     vim.api.nvim_create_autocmd("InsertLeave", {
         callback = function()
             change_input_by_os(merged_config.default)
         end,
     })
 
-    -- TODO: support only trigger when specific file type
     vim.api.nvim_create_autocmd("InsertEnter", {
         callback = function()
             local current_line_content = vim.api.nvim_get_current_line()
-            local _line_idx, col_idx = unpack(vim.api.nvim_win_get_cursor(0))
-            local range = get_range(current_line_content, col_idx)
+            local current_pos = vim.api.nvim_win_get_cursor(0)
+            local current_col = current_pos[2]
+            
+            -- 通过比较位置判断插入方式
+            local is_forward = current_col > last_cursor_pos.col
+            
+            -- 确定要检查的位置
+            local check_col = current_col
+            if not is_forward then
+                -- 对于向前插入（i键），检查前一个字符
+                check_col = check_col - 1
+            end
+            
+            -- 如果check_col小于1，说明是在行首插入
+            if check_col < 1 then
+                change_input_by_os(merged_config.default)
+                return
+            end
+            
+            local range = get_range(current_line_content, check_col)
+            
             if range then
                 local codepoint = utf8.codepoint(range.char)
-                local msg = string.format("col_idx: %s, char: %s,  codepoint: %x", col_idx, range.char, codepoint)
+                local msg = string.format("insert_type: %s, col_idx: %s, check_col: %s, char: %s, codepoint: %x", 
+                    is_forward and "append" or "insert", current_col, check_col, range.char, codepoint)
                 logger.debug(msg)
+                
                 local lang = get_matched_lang(merged_config.lang, codepoint)
-
                 if lang then
                     change_input_by_os(lang)
                 else
                     change_input_by_os(merged_config.default)
                 end
+            else
+                -- 如果没有可检查的字符，使用默认输入法
+                change_input_by_os(merged_config.default)
             end
         end,
     })

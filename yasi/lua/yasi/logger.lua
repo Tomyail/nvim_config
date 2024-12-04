@@ -28,6 +28,7 @@ M.print_msg = function(level, msg)
         local output = "[" .. level .. "] " .. msg
         if using_notify then
             vim.notify(output)
+            print(output)
         -- vim.notify(output, M.tbl_indexof(lovel_list, level) - 1)
         else
             print(output)
