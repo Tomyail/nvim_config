@@ -65,17 +65,6 @@ return {
     },
   },
   {
-    "folke/which-key.nvim",
-    opts = {
-      spec = {
-        ["<leader>w"] = {
-          "<cmd>w!<cr>",
-          "Save",
-        },
-      },
-    },
-  },
-  {
     "lewis6991/gitsigns.nvim",
     opts = {
       current_line_blame = true,
@@ -357,49 +346,21 @@ return {
     },
   },
 
-{
+  {
     "smoka7/multicursors.nvim",
     event = "VeryLazy",
     dependencies = {
-        'nvimtools/hydra.nvim',
+      "nvimtools/hydra.nvim",
     },
     opts = {},
-    cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
+    cmd = { "MCstart", "MCvisual", "MCclear", "MCpattern", "MCvisualPattern", "MCunderCursor" },
     keys = {
-            {
-                mode = { 'v', 'n' },
-                '<Leader>m',
-                '<cmd>MCstart<cr>',
-                desc = 'Create a selection for selected text or word under the cursor',
-            },
-        },
-},
-  -- {
-  --   "kawre/leetcode.nvim",
-  --   build = ":TSUpdate html",
-  --   dependencies = {
-  --     "nvim-telescope/telescope.nvim",
-  --     "nvim-lua/plenary.nvim", -- required by telescope
-  --     "MunifTanjim/nui.nvim",
-  --
-  --     -- optional
-  --     "nvim-treesitter/nvim-treesitter",
-  --     "rcarriga/nvim-notify",
-  --     "nvim-tree/nvim-web-devicons",
-  --   },
-  --   opts = {
-  --     lang = "javascript",
-  --     cn = {
-  --       enabled = true,
-  --       translator = true,
-  --       translate_problems = true,
-  --     },
-  --     storage = {
-  --
-  --       home = vim.fn.isdirectory(vim.fn.expand("~/Source/leetcode/")) == 1 and vim.fn.expand("~/Source/leetcode/")
-  --         or vim.fn.stdpath("data") .. "/leetcode",
-  --     },
-  --     -- configuration goes here
-  --   },
-  -- },
+      {
+        mode = { "v", "n" },
+        "<Leader>m",
+        "<cmd>MCstart<cr>",
+        desc = "Create a selection for selected text or word under the cursor",
+      },
+    },
+  },
 }
