@@ -37,10 +37,8 @@ return {
           local node = tree:get_node()
           local dir = node.type == "file" and node:get_parent_id() or node:get_id()
 
-          local builtin = require("telescope.builtin")
-          local themes = require("telescope.themes")
-          --	builtin.live_grep({ cwd = dir })
-          builtin.live_grep(themes.get_ivy({ cwd = dir }))
+          local fzf = require('fzf-lua')
+          fzf.live_grep({ cwd = dir })
         end,
         desc = "grep",
       },
@@ -56,9 +54,8 @@ return {
           local node = tree:get_node()
           local dir = node.type == "file" and node:get_parent_id() or node:get_id()
 
-          local builtin = require("telescope.builtin")
-          local themes = require("telescope.themes")
-          builtin.find_files(themes.get_ivy({ cwd = dir }))
+          local fzf = require('fzf-lua')
+          fzf.files({ cwd = dir })
         end,
         desc = "find",
       },
