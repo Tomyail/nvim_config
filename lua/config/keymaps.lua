@@ -6,3 +6,5 @@
 local map = vim.keymap.set
 local del = vim.keymap.del
 
+
+map('n', '<leader>F', ":lua require('fzf-lua').live_grep()<CR>")
