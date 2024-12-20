@@ -1,3 +1,5 @@
 plugin
 Session.vim
 .DS_Store
+options-local.lua
+
