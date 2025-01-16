@@ -30,4 +30,5 @@ return {
       })
     end,
   },
+ { "echasnovski/mini.pairs", enabled = false },
 }
