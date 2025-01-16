@@ -30,5 +30,19 @@ return {
       })
     end,
   },
- { "echasnovski/mini.pairs", enabled = false },
+  { "echasnovski/mini.pairs", enabled = false },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    opts = function()
+      return {
+        context = { "buffer" },
+        window = {
+          width = 0.3,
+          -- layout = "float",
+        },
+        auto_insert_mode = true,
+        insert_at_end = true,
+      }
+    end,
+  },
 }
